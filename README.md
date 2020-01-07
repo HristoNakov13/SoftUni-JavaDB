@@ -8,3 +8,4 @@ Spring Data - https://softuni.bg/trainings/2612/spring-data-february-2020
 MySQL courses:
 <br/>
 * [Databases Introduction. Data Definition and Datatypes](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Data%20Definitions%20and%20Types)
+* [CRUD](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/CRUD)
