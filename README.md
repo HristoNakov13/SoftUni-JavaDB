@@ -9,8 +9,8 @@ MySQL courses:
 <br/>
 * [Databases Introduction. Data Definition and Datatypes](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Data%20Definitions%20and%20Types)
 * [CRUD](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/CRUD)
-* Built-in Functions
-* Data Aggregation
+* [Built-in Functions](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Build-in%20Functions)
+* [Data Aggregation](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Data%20Aggregation)
 * Table Relations
 * Subqueries and JOINs
 * Database Programmability and Transactions
