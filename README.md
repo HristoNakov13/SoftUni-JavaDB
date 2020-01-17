@@ -17,4 +17,14 @@ MySQL courses:
 
 
 Spring Data:
-* [Database Programmability and Transactions](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Procedures%2C%20Transactions%20and%20Triggers)
+
+* DB Apps Introduction
+* ORM Fundamentals
+* Introduction to Hibernate
+* Hibernate Code First
+* Spring Data Intro
+* Spring Data Advanced Quering
+* Spring Data Auto Mapping Objects
+* JSON Processing
+* XML Processing
+* Workshop - MVC Project
