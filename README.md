@@ -18,6 +18,7 @@ MySQL courses:
 <br/>
 Spring Data courses:
 
+
 * DB Apps Introduction
 * ORM Fundamentals
 * Workshop: Custom ORM
