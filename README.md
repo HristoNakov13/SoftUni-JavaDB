@@ -18,14 +18,14 @@ MySQL courses:
 <br/>
 Spring Data courses:
 <br/>
-* [DB Apps Introduction]
-* [ORM Fundamentals]
-* [Workshop: Custom ORM]
-* [Introduction to Hibernate]
-* [Hibernate Code First]
-* [Spring Data Intro]
-* [Spring Data Advanced Quering]
-* [Spring Data Auto Mapping Objects]
-* [JSON Processing]
-* [XML Processing]
-* [Workshop - MVC Project]
+* DB Apps Introduction
+* ORM Fundamentals
+* Workshop: Custom ORM
+* Introduction to Hibernate
+* Hibernate Code First
+* Spring Data Intro
+* Spring Data Advanced Quering
+* Spring Data Auto Mapping Objects
+* JSON Processing
+* XML Processing
+* Workshop - MVC Project
