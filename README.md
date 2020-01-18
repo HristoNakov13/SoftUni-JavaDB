@@ -13,5 +13,18 @@ MySQL courses:
 * [Data Aggregation](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Data%20Aggregation)
 * [Table Relations](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Table%20Relations)
 * [Subqueries and JOINs](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Subqueries%20and%20Joins)
-* Database Programmability and Transactions
-* Triggers and Transactions
+* [Database Programmability and Transactions](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Procedures%2C%20Transactions%20and%20Triggers)
+
+
+Spring Data:
+
+* DB Apps Introduction
+* ORM Fundamentals
+* Introduction to Hibernate
+* Hibernate Code First
+* Spring Data Intro
+* Spring Data Advanced Quering
+* Spring Data Auto Mapping Objects
+* JSON Processing
+* XML Processing
+* Workshop - MVC Project
