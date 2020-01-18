@@ -223,8 +223,8 @@ DELIMITER ;
 CREATE TABLE notification_emails(
 	id INT NOT NULL AUTO_INCREMENT,
     recipient INT NOT NULL,
-    subject VARCHAR(50) NOT NULL,
-    body VARCHAR(50) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    body VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 #    CONSTRAINT fk_notification_emails_accounts FOREIGN KEY(recipient)
 #		REFERENCES accounts(id)
