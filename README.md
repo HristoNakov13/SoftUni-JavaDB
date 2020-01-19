@@ -16,7 +16,7 @@ MySQL courses:
 * [Database Programmability and Transactions](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/MySQL/Procedures%2C%20Transactions%20and%20Triggers)
 
 
-Spring Data:
+Spring Data courses:
 
 * DB Apps Introduction
 * ORM Fundamentals
@@ -28,3 +28,5 @@ Spring Data:
 * JSON Processing
 * XML Processing
 * Workshop - MVC Project
+
+[Exams](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Exams)
