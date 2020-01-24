@@ -21,7 +21,7 @@ Spring Data courses:
 * [DB Apps Introduction](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/DB%20Apps%20Introduction)
 * [Workshop - Custom ORM](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Workshop%20-%20Custom%20ORM)
 * ORM Fundamentals
-* Introduction to Hibernate
+* [Introduction to Hibernate](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Introduction%20to%20Hibernate)
 * Hibernate Code First
 * Spring Data Intro
 * Spring Data Advanced Quering
