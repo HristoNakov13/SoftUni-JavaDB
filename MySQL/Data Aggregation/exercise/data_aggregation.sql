@@ -90,7 +90,10 @@ ORDER BY `deposit_group` DESC, `is_deposit_expired`;
 
 #------12------
 
-#TODO
+SELECT SUM(w.deposit_amount - s.deposit_amount) sum_difference
+FROM wizzard_deposits w
+INNER JOIN wizzard_deposits s
+ON w.id + 1 = s.id;
 
 #------13------
 
@@ -137,7 +140,15 @@ WHERE `manager_id` IS NULL;
 
 #------17------
 
-#TODO
+SELECT `department_id`,
+    (SELECT DISTINCT `e2`.`salary`
+        FROM `employees` `e2`
+        WHERE `e2`.`department_id` = `e`.`department_id`
+        ORDER BY `e2`.`salary` DESC
+        LIMIT 2, 1) AS `third_highest_salary`
+FROM `employees` AS `e`
+GROUP BY `department_id`
+HAVING `third_highest_salary` IS NOT NULL;
 
 #------18------
 
