@@ -1,36 +1,45 @@
+import entities.Employee;
 import entities.Town;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("soft_uni");
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Scanner scanner = new Scanner(System.in);
+        ExerciseTasks exerciseTasks = new ExerciseTasks(entityManager, scanner);
 
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        // #2
 
-        CriteriaQuery<Town> query = builder.createQuery(Town.class);
-        query.from(Town.class);
+//        System.out.println(exerciseTasks.removeObjects());
 
-        List<Town> towns = entityManager.createQuery(query).getResultList();
-        towns.stream()
-                .filter(town -> town.getName().length() > 5)
-                .forEach(entityManager::detach);
-        towns.forEach(town -> {
-            town.setName(town.getName().toLowerCase());
-            if (entityManager.contains(town)) {
-                entityManager.persist(town);
-            }
-        });
+        // #3
+//        String fullName = scanner.nextLine();
+//        System.out.println(exerciseTasks.containsEmployee(fullName));
 
-        List<Town> updatedTowns = entityManager.createQuery(query).getResultList();
-        updatedTowns.forEach(town -> System.out.println(town.getName()));
+        // #4
+//        BigDecimal salaryOver = BigDecimal.valueOf(Double.parseDouble(scanner.nextLine()));
+//        System.out.println(exerciseTasks.employeesWithSalaryOver(salaryOver));
 
+        // #5
+//        System.out.println(exerciseTasks.employeesFromResearchAndDevelopment());
+
+        // #6
+//        String employeeLastName = scanner.nextLine();
+//        System.out.println(exerciseTasks.addAddressToEmployee(employeeLastName));
+
+        // #7
+//        System.out.println(exerciseTasks.topTenAddressesByEmployeeCount());
+
+        // #8
+//        int employeeId = Integer.parseInt(scanner.nextLine());
+//        System.out.println(exerciseTasks.getEmployeeProjectsById(employeeId));
     }
 }
