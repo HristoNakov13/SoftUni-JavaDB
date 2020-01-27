@@ -32,7 +32,8 @@ public class StoreLocation {
         this.locationName = locationName;
     }
 
-    @OneToMany(mappedBy = "storeLocation", targetEntity = Sale.class)
+    @OneToMany(mappedBy = "storeLocation", targetEntity = Sale.class,
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Sale> getSales() {
         return sales;
     }
@@ -41,5 +42,3 @@ public class StoreLocation {
         this.sales = sales;
     }
 }
-
-

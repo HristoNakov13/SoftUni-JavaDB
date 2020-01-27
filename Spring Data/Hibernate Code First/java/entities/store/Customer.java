@@ -52,7 +52,8 @@ public class Customer {
         this.creditCardNumber = creditCardNumber;
     }
 
-    @OneToMany(mappedBy = "customer", targetEntity = Sale.class)
+    @OneToMany(mappedBy = "customer", targetEntity = Sale.class,
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Sale> getSales() {
         return sales;
     }
@@ -61,5 +62,3 @@ public class Customer {
         this.sales = sales;
     }
 }
-
-

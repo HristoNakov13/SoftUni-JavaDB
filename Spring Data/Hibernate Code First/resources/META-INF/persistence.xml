@@ -24,4 +24,34 @@
             <property name="hibernate.connection.password" value="1234"/>
         </properties>
     </persistence-unit>
+
+    <persistence-unit name="university">
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/university?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="1234"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="hospital">
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/hospital?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="1234"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="bill_system">
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/bill_system?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="1234"/>
+        </properties>
+    </persistence-unit>
 </persistence>

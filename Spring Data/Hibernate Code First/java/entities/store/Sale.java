@@ -25,7 +25,7 @@ public class Sale {
         this.id = id;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     public Product getProduct() {
         return product;
@@ -35,7 +35,7 @@ public class Sale {
         this.product = product;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     public Customer getCustomer() {
         return customer;
@@ -45,7 +45,7 @@ public class Sale {
         this.customer = customer;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "store_location_id", referencedColumnName = "id")
     public StoreLocation getStoreLocation() {
         return storeLocation;
@@ -64,5 +64,3 @@ public class Sale {
         this.date = date;
     }
 }
-
-

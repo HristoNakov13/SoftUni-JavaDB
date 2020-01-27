@@ -53,7 +53,8 @@ public class Product {
         this.price = price;
     }
 
-    @OneToMany(mappedBy = "product", targetEntity = Sale.class)
+    @OneToMany(mappedBy = "product", targetEntity = Sale.class,
+            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Sale> getSales() {
         return sales;
     }
@@ -62,6 +63,3 @@ public class Product {
         this.sales = sales;
     }
 }
-
-
-

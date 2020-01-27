@@ -1,6 +1,7 @@
 import entities.gringotts.WizzardDeposit;
+import entities.university.Course;
+import entities.university.Student;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,7 +17,17 @@ public class Main {
 //        #2
 //        EntityManager storeManager = getEntityManagerForDB("store");
 
+//        #3
+//        EntityManager universityManager = getEntityManagerForDB("university");
+
+//        #4
+//        EntityManager hospitalManager = getEntityManagerForDB("hospital");
+//        #5
+//        EntityManager billingManager = getEntityManagerForDB("bill_system");
+
+
     }
+
     private static EntityManager getEntityManagerForDB(String dbPersistenceName) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(dbPersistenceName);
 
