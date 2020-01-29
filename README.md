@@ -24,7 +24,7 @@ Spring Data courses:
 * [Introduction to Hibernate](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Introduction%20to%20Hibernate)
 * [Hibernate Code First](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Hibernate%20Code%20First)
 * [Spring Data Intro](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Spring%20Data%20Intro)
-* Spring Data Advanced Quering
+* [Spring Data Advanced Quering](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Spring%20Data%20Advanced%20Quering)
 * Spring Data Auto Mapping Objects
 * JSON Processing
 * XML Processing
