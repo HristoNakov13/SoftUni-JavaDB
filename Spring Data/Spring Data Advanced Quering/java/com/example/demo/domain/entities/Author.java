@@ -32,7 +32,7 @@ public class Author extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "author", targetEntity = Book.class,
-            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+            fetch = FetchType.LAZY)
     public Set<Book> getBooks() {
         return books;
     }

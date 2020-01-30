@@ -5,7 +5,6 @@ import com.example.demo.domain.entities.enums.EditionType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -90,7 +89,7 @@ public class Book extends BaseEntity{
         this.title = title;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     public Author getAuthor() {
         return author;

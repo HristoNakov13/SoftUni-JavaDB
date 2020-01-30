@@ -2,29 +2,30 @@ package com.example.demo.service;
 
 import com.example.demo.domain.entities.Category;
 import com.example.demo.repository.CategoryRepository;
-import com.example.demo.service.dbseeder.DbSeederImpl;
+import com.example.demo.util.filereader.FileReader;
 import com.example.demo.util.datamap.EntityMapper;
-import com.example.demo.util.filereader.FileUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
 @Service
-public class CategoryService extends DbSeederImpl {
-    private CategoryRepository categoryRepository;
+public class CategoryService {
+    private final CategoryRepository categoryRepository;
+    private final EntityMapper entityMapper;
+    private final FileReader fileReader;
 
-    public CategoryService(EntityMapper entityMapper, FileUtil fileReader, CategoryRepository categoryRepository) {
-        super(entityMapper, fileReader);
+    public CategoryService(EntityMapper entityMapper, FileReader fileReader, CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
+        this.fileReader = fileReader;
+        this.entityMapper = entityMapper;
     }
 
-    @Override
     public void seedDb(String fileName) throws IOException {
-        List<String> content = super.getFileContent(fileName);
+        List<String> content = this.fileReader.getFileContent(fileName);
 
         content.forEach(line -> {
-            Category category = super.getEntityMapper().mapCategory(line);
+            Category category = this.entityMapper.mapCategory(line);
             this.categoryRepository.save(category);
         });
     }
