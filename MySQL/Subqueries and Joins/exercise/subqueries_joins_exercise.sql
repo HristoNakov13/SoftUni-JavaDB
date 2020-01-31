@@ -14,7 +14,6 @@ LIMIT 5;
 
 #------2------
 
-
 SELECT e.first_name,
 	e.last_name,
     t.name,
@@ -110,7 +109,7 @@ ORDER BY p.name;
 SELECT e.employee_id,
 	e.first_name,
     m.employee_id,
-    m.first_name AS manager_name
+    m.first_name manager_name
 FROM employees e
 INNER JOIN employees m
 ON e.manager_id = m.employee_id
@@ -120,8 +119,8 @@ ORDER BY e.first_name;
 #------10------
 
 SELECT e.employee_id,
-	CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
-    CONCAT(m.first_name, ' ', m.last_name) AS manager_name,
+	CONCAT(e.first_name, ' ', e.last_name) employee_name,
+    CONCAT(m.first_name, ' ', m.last_name) manager_name,
     d.name AS department_name
 FROM employees e
 INNER JOIN employees m
@@ -134,7 +133,7 @@ LIMIT 5;
 
 #------11------
 
-SELECT AVG(salary) AS min_average_salary
+SELECT AVG(salary) min_average_salary
 FROM employees
 GROUP BY department_id
 ORDER BY min_average_salary
@@ -161,7 +160,7 @@ ORDER BY p.elevation DESC;
 #------13------
 
 SELECT c.country_code,
-	COUNT(m.mountain_range) AS mountain_ranges
+	COUNT(m.mountain_range) mountain_ranges
 FROM countries c
 INNER JOIN mountains_countries mc
 ON c.country_code = mc.country_code
@@ -175,18 +174,31 @@ ORDER BY mountain_ranges DESC;
 
 SELECT c.country_name, r.river_name
 FROM countries c
-INNER JOIN continents ct
+LEFT JOIN continents ct
 ON c.continent_code = ct.continent_code
 LEFT JOIN countries_rivers cr
 ON c.country_code = cr.country_code
 LEFT JOIN rivers r
 ON cr.river_id = r.id
 WHERE ct.continent_code = 'AF'
-ORDER BY c.country_name;
+ORDER BY c.country_name
+LIMIT 5;
 
 #------15------
+#solution from k.sevov 
 
-#TODO
+SELECT d1.continent_code, d1.currency_code, d1.currency_usage FROM
+    (SELECT `c`.`continent_code`, `c`.`currency_code`,
+    COUNT(`c`.`currency_code`) AS `currency_usage` FROM countries as c
+    GROUP BY c.currency_code, c.continent_code HAVING currency_usage > 1) as d1
+LEFT JOIN
+    (SELECT `c`.`continent_code`,`c`.`currency_code`,
+    COUNT(`c`.`currency_code`) AS `currency_usage` FROM countries as c
+     GROUP BY c.currency_code, c.continent_code HAVING currency_usage > 1) as d2
+ON d1.continent_code = d2.continent_code AND d2.currency_usage > d1.currency_usage
+
+WHERE d2.currency_usage IS NULL
+ORDER BY d1.continent_code, d1.currency_code;
 
 #------16------
 
@@ -198,4 +210,25 @@ WHERE mc.mountain_id IS NULL;
 
 #------17------
 
-#TODO
+SELECT o.country_name,
+	(SELECT MAX(p.elevation)
+		FROM countries c
+		LEFT JOIN mountains_countries mc
+		ON c.country_code = mc.country_code
+		LEFT JOIN mountains m
+		ON m.id = mc.mountain_id
+		LEFT JOIN peaks p
+		ON p.mountain_id = m.id
+		WHERE c.country_code = o.country_code)
+	AS highest_peak,
+	(SELECT MAX(r.length)
+		FROM countries c
+		LEFT JOIN countries_rivers cr
+		ON c.country_code = cr.country_code
+		LEFT JOIN rivers r
+		ON r.id = cr.river_id
+		WHERE c.country_code = o.country_code) 
+	AS longest_river_length
+FROM countries o
+ORDER BY highest_peak DESC, longest_river_length DESC, o.country_name
+LIMIT 5;
