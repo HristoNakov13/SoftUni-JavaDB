@@ -1,9 +1,8 @@
 package com.gamestore.domain.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "games")
@@ -15,6 +14,8 @@ public class Game extends BaseEntity {
     private double price;
     private String description;
     private Date releaseDate;
+    private Set<Order> orders;
+    private Set<User> owners;
 
     public Game() {
     }
@@ -80,5 +81,23 @@ public class Game extends BaseEntity {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    @ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    @ManyToMany(mappedBy = "games", fetch = FetchType.LAZY)
+    public Set<User> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Set<User> owners) {
+        this.owners = owners;
     }
 }

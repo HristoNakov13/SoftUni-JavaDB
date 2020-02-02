@@ -45,6 +45,12 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_users",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id")}
+    )
     public Set<Game> getGames() {
         return games;
     }
@@ -53,6 +59,8 @@ public class User extends BaseEntity {
         this.games = games;
     }
 
+    @OneToMany(mappedBy = "buyer", targetEntity = Order.class,
+            fetch = FetchType.LAZY)
     public Set<Order> getOrders() {
         return orders;
     }
