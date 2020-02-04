@@ -1,30 +1,36 @@
 package com.gamestore.util.io;
 
 import com.gamestore.services.AuthenticationService;
-import com.gamestore.services.commands.Command;
+import com.gamestore.services.GameService;
+import com.gamestore.util.io.commands.Command;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 @Component
 public class InputHandlerImpl implements InputHandler {
-    private final String COMMANDS_PACKAGE_NAME = "com.gamestore.services.commands";
+    private final String COMMANDS_PACKAGE_NAME = "com.gamestore.util.io.commands";
     private Map<String, Command> commands;
     private final AuthenticationService authenticationService;
+    private final GameService gameService;
 
     @Autowired
-    public InputHandlerImpl(AuthenticationService authenticationService) throws IOException, ClassNotFoundException {
+    public InputHandlerImpl(AuthenticationService authenticationService, GameService gameService) throws IOException, ClassNotFoundException {
         this.authenticationService = authenticationService;
+        this.gameService = gameService;
         this.initHandler();
     }
 
     //Extract command classes then their names
     //Adds to commands map corresponding Command class instance with command name
+
+    //No idea how to create instances of Command classes with automatic Dependency injection from Spring.
+    //If it fails to get constructor with authService as param it will create a command with gameService.
+    //Trash and hard to extend the app without chaining endless try/catch blocks.
 
     @PostConstruct
     private void initHandler() throws IOException, ClassNotFoundException {
@@ -34,8 +40,14 @@ public class InputHandlerImpl implements InputHandler {
         commandClasses.forEach(commandClazz -> {
             try {
                 String commandName = commandClazz.getSimpleName().replace("Command", "");
-                Command command = (Command) commandClazz.getConstructor(this.authenticationService.getClass())
-                        .newInstance(this.authenticationService);
+                Command command;
+                try {
+                    command = (Command) commandClazz.getConstructor(this.authenticationService.getClass())
+                            .newInstance(this.authenticationService);
+                } catch (NoSuchMethodException e) {
+                    command = (Command) commandClazz.getConstructor(this.gameService.getClass())
+                            .newInstance(this.gameService);
+                }
 
                 commands.put(commandName, command);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

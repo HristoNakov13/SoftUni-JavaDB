@@ -1,4 +1,4 @@
-package com.gamestore.domain.enums;
+package com.gamestore.domain.entities.enums;
 
 public enum UserType {
     BASIC,

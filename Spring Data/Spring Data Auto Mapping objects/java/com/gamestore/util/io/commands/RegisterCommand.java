@@ -1,10 +1,8 @@
-package com.gamestore.services.commands;
+package com.gamestore.util.io.commands;
 
 import com.gamestore.services.AuthenticationService;
 import com.gamestore.services.AuthenticationServiceImpl;
-import org.springframework.stereotype.Component;
 
-@Component
 @Cmd
 public class RegisterCommand implements Command {
     private AuthenticationService authenticationService;
@@ -15,6 +13,10 @@ public class RegisterCommand implements Command {
 
     @Override
     public String execute(String... args) {
-        return this.authenticationService.register(args[0], args[1], args[2]);
+        try {
+            return this.authenticationService.register(args[0], args[1], args[2], args[3]);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            return "Fill all fields - Username, password, email to register.";
+        }
     }
 }

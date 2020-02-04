@@ -1,6 +1,6 @@
 package com.gamestore.domain.entities;
 
-import com.gamestore.domain.enums.UserType;
+import com.gamestore.domain.entities.enums.UserType;
 
 import javax.persistence.*;
 import java.util.Set;

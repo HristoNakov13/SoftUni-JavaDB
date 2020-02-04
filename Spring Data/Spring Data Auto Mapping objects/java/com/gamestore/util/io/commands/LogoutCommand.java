@@ -1,20 +1,18 @@
-package com.gamestore.services.commands;
+package com.gamestore.util.io.commands;
 
 import com.gamestore.services.AuthenticationService;
 import com.gamestore.services.AuthenticationServiceImpl;
-import org.springframework.stereotype.Component;
 
-@Component
 @Cmd
-public class LoginCommand implements Command {
+public class LogoutCommand implements Command {
     private AuthenticationService authenticationService;
 
-    public LoginCommand(AuthenticationServiceImpl authenticationService) {
+    public LogoutCommand(AuthenticationServiceImpl authenticationService) {
         this.authenticationService = authenticationService;
     }
 
     @Override
     public String execute(String... args) {
-        return this.authenticationService.login(args[0], args[1]);
+        return this.authenticationService.logout();
     }
 }

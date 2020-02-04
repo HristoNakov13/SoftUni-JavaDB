@@ -20,10 +20,11 @@ public class GameStoreController implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 //        implements console login/reg/logout service
-
         Scanner scanner = new Scanner(System.in);
+        String commandLine;
 
-        this.inputHandler.executeInput(scanner.nextLine());
-
+        while (!(commandLine = scanner.nextLine()).equals("END")) {
+            System.out.println(this.inputHandler.executeInput(commandLine));
+        }
     }
 }
