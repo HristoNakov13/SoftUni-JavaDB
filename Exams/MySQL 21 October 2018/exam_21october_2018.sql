@@ -113,3 +113,60 @@ WHERE (
 # );
 
 #------5------
+
+SELECT tc.card_number, tc.job_during_journey
+FROM travel_cards tc
+ORDER BY  tc.card_number;
+
+#------6------
+
+SELECT c.id, concat_ws(' ', c.first_name, c.last_name) full_name, c.ucn
+FROM colonists c
+ORDER BY c.first_name, c.last_name, c.id;
+
+#------7------
+
+SELECT j.id, j.journey_start, j.journey_end
+FROM journeys j
+WHERE j.purpose = 'Military'
+ORDER BY j.journey_start;
+
+#------8------
+
+SELECT c.id, concat_ws(' ', c.first_name, c.last_name) full_name
+FROM colonists c
+JOIN travel_cards tc
+ON c.id = tc.colonist_id
+WHERE tc.job_during_journey = 'Pilot'
+ORDER BY id;
+
+#------9------
+
+SELECT count(c.id) count
+FROM colonists c
+JOIN travel_cards tc
+ON c.id = tc.colonist_id
+JOIN journeys j
+ON tc.journey_id = j.id
+WHERE j.purpose = 'Technical';
+
+#------10------
+
+SELECT ship.name spaceship_name, port.name spaceport_name
+FROM spaceships ship
+JOIN journeys j on ship.id = j.spaceship_id
+JOIN spaceports port ON j.destination_spaceport_id = port.id
+ORDER BY ship.light_speed_rate DESC LIMIT 1;
+
+#------11------
+
+SELECT s.name, s.manufacturer
+FROM colonists c
+JOIN travel_cards tc
+ON tc.colonist_id = c.id
+JOIN journeys j
+on tc.journey_id = j.id
+JOIN spaceships s
+on j.spaceship_id = s.id
+WHERE year(c.birth_date) > year(DATE_SUB('2019-01-01', INTERVAL 30 YEAR)) and tc.job_during_journey = 'Pilot'
+ORDER BY s.name;
