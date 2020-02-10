@@ -1,0 +1,15 @@
+package demo.shop.util.parsers;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class GsonParser implements Parser {
+    private Gson gson = new GsonBuilder().create();
+
+    @Override
+    public <T> T fromJSon(String json, Class<T> clazz) {
+        return this.gson.fromJson(json, clazz);
+    }
+}
