@@ -1,7 +1,7 @@
 package demo.shop.services;
 
 import demo.shop.domain.entities.Category;
-import demo.shop.domain.models.CategoryModel;
+import demo.shop.domain.models.plainmodels.categorymodels.CategoryModel;
 import demo.shop.domain.models.createmodels.CategoryCreateModel;
 import demo.shop.repositories.CategoryRepository;
 import demo.shop.services.validators.CategoryValidator;

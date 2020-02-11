@@ -1,13 +1,13 @@
-package demo.shop.domain.models;
+package demo.shop.domain.models.plainmodels.productsmodels;
 
 import java.math.BigDecimal;
 
-public class SellingProductModel {
+public class SellerProductModel {
     private String name;
     private BigDecimal price;
     private String seller;
 
-    public SellingProductModel() {
+    public SellerProductModel() {
     }
 
     public String getName() {

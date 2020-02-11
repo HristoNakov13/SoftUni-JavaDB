@@ -1,4 +1,7 @@
-package demo.shop.domain.models;
+package demo.shop.domain.models.plainmodels.usersmodels;
+
+import demo.shop.domain.models.plainmodels.productsmodels.BoughtProductModel;
+import demo.shop.domain.models.plainmodels.productsmodels.SellerProductModel;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +11,7 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private Integer age;
-    private Set<SellingProductModel> sellingProducts = new HashSet<>();
+    private Set<SellerProductModel> sellingProducts = new HashSet<>();
     private Set<BoughtProductModel> boughtProducts = new HashSet<>();
 
     public UserModel() {
@@ -38,11 +41,11 @@ public class UserModel {
         this.age = age;
     }
 
-    public Set<SellingProductModel> getSellingProducts() {
+    public Set<SellerProductModel> getSellingProducts() {
         return sellingProducts;
     }
 
-    public void setSellingProducts(Set<SellingProductModel> sellingProducts) {
+    public void setSellingProducts(Set<SellerProductModel> sellingProducts) {
         this.sellingProducts = sellingProducts;
     }
 

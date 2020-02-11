@@ -1,7 +1,7 @@
 package demo.shop.domain.models.createmodels;
 
-import demo.shop.domain.models.CategoryModel;
-import demo.shop.domain.models.UserModel;
+import demo.shop.domain.models.plainmodels.categorymodels.CategoryModel;
+import demo.shop.domain.models.plainmodels.usersmodels.UserModel;
 
 import java.math.BigDecimal;
 import java.util.HashSet;

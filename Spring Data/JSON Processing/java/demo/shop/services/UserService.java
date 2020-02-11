@@ -1,7 +1,8 @@
 package demo.shop.services;
 
 import demo.shop.domain.entities.User;
-import demo.shop.domain.models.UserModel;
+import demo.shop.domain.models.plainmodels.usersmodels.UserWithSoldProductsModel;
+import demo.shop.domain.models.plainmodels.usersmodels.UserModel;
 import demo.shop.domain.models.createmodels.UserCreateModel;
 import demo.shop.repositories.UserRepository;
 import demo.shop.services.validators.UserValidator;
@@ -44,6 +45,22 @@ public class UserService {
         return this.userRepository.findAll()
                 .stream()
                 .map(user -> this.mapper.map(user, UserModel.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<UserWithSoldProductsModel> getAllUsersWithSales() {
+        //filters products from the seller that were never sold
+        List<User> sellers = this.userRepository.getAllUsersWithSales()
+                .stream()
+                .map(seller -> {
+                     seller.setSellingProducts(seller.getSellingProducts()
+                            .stream().filter(product -> product.getBuyer() != null)
+                            .collect(Collectors.toSet()));
+                    return seller;
+                }).collect(Collectors.toList());
+
+        return sellers.stream()
+                .map(seller -> this.mapper.map(seller, UserWithSoldProductsModel.class))
                 .collect(Collectors.toList());
     }
 }
