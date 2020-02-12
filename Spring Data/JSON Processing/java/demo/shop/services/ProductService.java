@@ -1,8 +1,8 @@
 package demo.shop.services;
 
 import demo.shop.domain.entities.Product;
-import demo.shop.domain.models.plainmodels.productsmodels.BoughtProductModel;
-import demo.shop.domain.models.plainmodels.productsmodels.SellerProductModel;
+import demo.shop.domain.models.view.productsmodels.BoughtProductModel;
+import demo.shop.domain.models.view.productsmodels.SellerProductModel;
 import demo.shop.domain.models.createmodels.ProductCreateModel;
 import demo.shop.repositories.ProductRepository;
 import demo.shop.services.validators.ProductValidator;

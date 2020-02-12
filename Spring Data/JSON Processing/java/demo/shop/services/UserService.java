@@ -1,9 +1,10 @@
 package demo.shop.services;
 
 import demo.shop.domain.entities.User;
-import demo.shop.domain.models.plainmodels.usersmodels.UserWithSoldProductsModel;
-import demo.shop.domain.models.plainmodels.usersmodels.UserModel;
+import demo.shop.domain.models.view.usersmodels.UserWithSoldProductsModel;
+import demo.shop.domain.models.view.usersmodels.UserModel;
 import demo.shop.domain.models.createmodels.UserCreateModel;
+import demo.shop.domain.models.view.usersmodels.statsmodels.UserStatsModel;
 import demo.shop.repositories.UserRepository;
 import demo.shop.services.validators.UserValidator;
 import org.modelmapper.ModelMapper;
@@ -61,6 +62,22 @@ public class UserService {
 
         return sellers.stream()
                 .map(seller -> this.mapper.map(seller, UserWithSoldProductsModel.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<UserStatsModel> getAllUserSellersStats() {
+        List<User> sellers = this.userRepository.getAllUsersWithSales();
+
+        return sellers.stream()
+                .map(user -> this.mapper.map(user, UserStatsModel.class))
+                .sorted((u1, u2) -> {
+                    int sort = u2.getSoldProducts().getCount() - u1.getSoldProducts().getCount();
+                    if (sort == 0) {
+                        sort = u1.getLastName().compareTo(u2.getLastName());
+                    }
+
+                    return sort;
+                })
                 .collect(Collectors.toList());
     }
 }

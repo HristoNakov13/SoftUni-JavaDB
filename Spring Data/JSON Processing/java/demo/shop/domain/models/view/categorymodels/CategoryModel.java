@@ -1,4 +1,4 @@
-package demo.shop.domain.models.plainmodels.categorymodels;
+package demo.shop.domain.models.view.categorymodels;
 
 public class CategoryModel {
     private Integer id;

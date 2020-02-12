@@ -1,7 +1,7 @@
-package demo.shop.domain.models.plainmodels.usersmodels;
+package demo.shop.domain.models.view.usersmodels;
 
-import demo.shop.domain.models.plainmodels.productsmodels.BoughtProductModel;
-import demo.shop.domain.models.plainmodels.productsmodels.SellerProductModel;
+import demo.shop.domain.models.view.productsmodels.BoughtProductModel;
+import demo.shop.domain.models.view.productsmodels.SellerProductModel;
 
 import java.util.HashSet;
 import java.util.Set;

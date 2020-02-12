@@ -1,6 +1,8 @@
 package demo.shop.controllers;
 
-import demo.shop.domain.models.plainmodels.usersmodels.UserWithSoldProductsModel;
+import demo.shop.domain.models.view.categorymodels.CategoryStatsModel;
+import demo.shop.domain.models.view.usersmodels.statsmodels.AllUserStatsModel;
+import demo.shop.domain.models.view.usersmodels.statsmodels.UserStatsModel;
 import demo.shop.services.CategoryService;
 import demo.shop.services.ProductService;
 import demo.shop.services.UserService;
@@ -45,10 +47,11 @@ public class ShopController implements CommandLineRunner {
 //
 
         //parses model data into json and writes it into files
+
         // #1
         JsonFileWriter jsonFileWriter = new JsonFileWriter(parser);
 
-//        List<SellingProductModel> products = this.productService
+//        List<SellerProductModel> products = this.productService
 //                .getAllProductsWithoutBuyerInPriceRange(BigDecimal.valueOf(500), BigDecimal.valueOf(1000));
 //
 //        String productsFileName = "products-without-buyers";
@@ -56,12 +59,21 @@ public class ShopController implements CommandLineRunner {
 
 
         // #2
-        List<UserWithSoldProductsModel> sellers = this.userService.getAllUsersWithSales();
-        String sellersFilename = "sellers";
-        jsonFileWriter.exportDataToFile(sellersFilename, sellers);
+//        List<UserWithSoldProductsModel> sellers = this.userService.getAllUsersWithSales();
+//        String sellersFilename = "sellers";
+//        jsonFileWriter.exportDataToFile(sellersFilename, sellers);
 
-        System.out.println();
+        // #3
+//        List<CategoryStatsModel> categoryStats = this.categoryService.getAllCategoryStatistics();
+//        String statsFilename = "category-stats";
+//        jsonFileWriter.exportDataToFile(statsFilename, categoryStats);
 
+        // #4
 
+        List<UserStatsModel> sellerStats = this.userService.getAllUserSellersStats();
+        AllUserStatsModel allUserStatsModel = new AllUserStatsModel(sellerStats.size(), sellerStats);
+
+        String sellersStatsFilename = "all-sellers-stats";
+        jsonFileWriter.exportDataToFile(sellersStatsFilename, allUserStatsModel);
     }
 }

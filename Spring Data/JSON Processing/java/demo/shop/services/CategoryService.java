@@ -1,13 +1,15 @@
 package demo.shop.services;
 
 import demo.shop.domain.entities.Category;
-import demo.shop.domain.models.plainmodels.categorymodels.CategoryModel;
+import demo.shop.domain.models.view.categorymodels.CategoryModel;
 import demo.shop.domain.models.createmodels.CategoryCreateModel;
+import demo.shop.domain.models.view.categorymodels.CategoryStatsModel;
 import demo.shop.repositories.CategoryRepository;
 import demo.shop.services.validators.CategoryValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,5 +47,14 @@ public class CategoryService {
                 .stream()
                 .map(category -> this.mapper.map(category, CategoryModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<CategoryStatsModel> getAllCategoryStatistics() {
+        List<Category> categories = this.categoryRepository.findAll();
+
+       return categories.stream()
+               .map(category -> this.mapper.map(category, CategoryStatsModel.class))
+               .collect(Collectors.toList());
     }
 }

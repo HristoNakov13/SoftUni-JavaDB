@@ -1,6 +1,6 @@
-package demo.shop.domain.models.plainmodels.usersmodels;
+package demo.shop.domain.models.view.usersmodels;
 
-import demo.shop.domain.models.plainmodels.productsmodels.BoughtProductModel;
+import demo.shop.domain.models.view.productsmodels.BoughtProductModel;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
 package demo.shop.util.seeders;
 
-import demo.shop.domain.models.plainmodels.categorymodels.CategoryModel;
-import demo.shop.domain.models.plainmodels.usersmodels.UserModel;
+import demo.shop.domain.models.view.categorymodels.CategoryModel;
+import demo.shop.domain.models.view.usersmodels.UserModel;
 import demo.shop.domain.models.createmodels.ProductCreateModel;
 import demo.shop.services.CategoryService;
 import demo.shop.services.ProductService;

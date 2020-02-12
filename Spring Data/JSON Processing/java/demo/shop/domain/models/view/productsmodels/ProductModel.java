@@ -1,14 +1,10 @@
-package demo.shop.domain.models.plainmodels.productsmodels;
-
-import demo.shop.domain.entities.Category;
+package demo.shop.domain.models.view.productsmodels;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 public class ProductModel {
     private String name;
     private BigDecimal price;
-    private Set<Category> categories;
 
     public ProductModel() {
     }
@@ -19,14 +15,6 @@ public class ProductModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
     }
 
     public String getName() {
