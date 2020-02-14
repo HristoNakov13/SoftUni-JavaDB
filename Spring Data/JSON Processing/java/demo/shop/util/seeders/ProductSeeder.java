@@ -1,5 +1,6 @@
 package demo.shop.util.seeders;
 
+import demo.shop.domain.models.createmodels.ListProductCreateModel;
 import demo.shop.domain.models.view.categorymodels.CategoryModel;
 import demo.shop.domain.models.view.usersmodels.UserModel;
 import demo.shop.domain.models.createmodels.ProductCreateModel;
@@ -7,9 +8,8 @@ import demo.shop.services.CategoryService;
 import demo.shop.services.ProductService;
 import demo.shop.services.UserService;
 import demo.shop.util.parsers.Parser;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -28,14 +28,28 @@ public class ProductSeeder extends SeederImpl {
         this.parser = parser;
     }
 
+    @Override
+    public void SeedDbFromJson(String resourceFilename) throws IOException {
+        String productsJson = super.getFileContent(resourceFilename + ".json");
+        List<ProductCreateModel> products = Arrays.asList(this.parser.fromJSon(productsJson, ProductCreateModel[].class));
+
+        this.productService.saveAllToDb(this.generateRandomDataForProducts(products));
+    }
+
+    @Override
+    public void SeedDbFromXML(String resourceFilename) throws IOException, JAXBException {
+        String xml = super.getFileContent(resourceFilename + ".xml");
+        ListProductCreateModel listProductCreateModel = this.parser.fromXML(xml, ListProductCreateModel.class);
+
+        this.productService.saveAllToDb(this.generateRandomDataForProducts(listProductCreateModel.getProducts()));
+    }
+
     //    When importing the products, randomly select the buyer and seller from the existing users.
     //    Leave out some products that have not been sold (i.e. buyer is null).
     //    Randomly generate categories for each product from the existing categories.
 
-    @Override
-    public void jsonSeedDb(String resourceFilename) throws IOException {
-        File productsFile = new ClassPathResource(resourceFilename).getFile();
-        String productsJson = super.getFileContent(productsFile);
+    private List<ProductCreateModel> generateRandomDataForProducts(List<ProductCreateModel> productsParam) {
+        List<ProductCreateModel> products = List.copyOf(productsParam);
 
         //lazy fetch breaks the nested models
         //really need to look into how to fix this
@@ -47,7 +61,6 @@ public class ProductSeeder extends SeederImpl {
         double chanceForNoBuyer = availableCategories.size() / 5.0;
 
         Random rng = new Random();
-        List<ProductCreateModel> products = Arrays.asList(this.parser.fromJSon(productsJson, ProductCreateModel[].class));
 
         for(ProductCreateModel product : products) {
             //numberOfCategories - count of how many categories a product will have
@@ -73,6 +86,6 @@ public class ProductSeeder extends SeederImpl {
             }
         }
 
-        this.productService.saveAllToDb(products);
+        return products;
     }
 }

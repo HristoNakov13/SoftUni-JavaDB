@@ -3,13 +3,21 @@ package demo.shop.domain.models.createmodels;
 import demo.shop.domain.models.view.categorymodels.CategoryModel;
 import demo.shop.domain.models.view.usersmodels.UserModel;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ProductCreateModel {
+    @XmlElement(name = "name")
     private String name;
+
+    @XmlElement(name = "price")
     private BigDecimal price;
+
     private UserModel seller;
     private UserModel buyer;
     private Set<CategoryModel> categories = new HashSet<>();

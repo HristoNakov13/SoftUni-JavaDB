@@ -2,24 +2,32 @@ package demo.shop.util.exporters;
 
 import demo.shop.util.parsers.Parser;
 
+import javax.xml.bind.JAXBException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 
-public class JsonFileWriter {
+public class FileDataWriter {
     private final String EXPORTS_DIRECTORY_PATH = "src\\main\\resources\\exports\\";
     private final String JSON_EXTENSION = ".json";
+    private final String XML_EXTENSION = ".xml";
     Parser parser;
 
-    public JsonFileWriter(Parser parser) {
+    public FileDataWriter(Parser parser) {
         this.parser = parser;
     }
 
-    public void exportDataToFile(String filename, Object data) throws IOException {
-        File file = this.createResourceFile(filename);
+    public void exportDataToJsonFile(String filename, Object data) throws IOException {
+        File file = this.createResourceFile(filename, JSON_EXTENSION);
         String dataString = this.parser.toJson(data);
+
+        this.writeData(dataString, file);
+    }
+
+    public <T> void exportDataToXmlFile(String filename, T entity) throws IOException, JAXBException {
+        File file = this.createResourceFile(filename, XML_EXTENSION);
+        String dataString = this.parser.toXML(entity);
 
         this.writeData(dataString, file);
     }
@@ -32,8 +40,8 @@ public class JsonFileWriter {
         }
     }
 
-    private File createResourceFile(String filename) throws IOException {
-        String path = this.createFilePath(filename);
+    private File createResourceFile(String filename, String extension) throws IOException {
+        String path = this.createFilePath(filename, extension);
         File file = new File(path);
 
         if (file.exists()) {
@@ -44,7 +52,7 @@ public class JsonFileWriter {
         return file;
     }
 
-    private String createFilePath(String filename) {
-        return String.format("%s%s%s", EXPORTS_DIRECTORY_PATH, filename, JSON_EXTENSION);
+    private String createFilePath(String filename, String extension) {
+        return String.format("%s%s%s", EXPORTS_DIRECTORY_PATH, filename, extension);
     }
 }

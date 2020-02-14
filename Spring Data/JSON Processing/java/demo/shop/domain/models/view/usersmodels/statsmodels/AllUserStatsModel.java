@@ -1,14 +1,18 @@
 package demo.shop.domain.models.view.usersmodels.statsmodels;
 
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
+@XmlRootElement(name = "users")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AllUserStatsModel {
+    @XmlAttribute(name = "count")
     private int userCount;
+
+    @XmlElement(name = "user")
     private List<UserStatsModel> users;
 
-    public AllUserStatsModel(int userCount, List<UserStatsModel> users) {
-        this.userCount = userCount;
-        this.users = users;
+    public AllUserStatsModel() {
     }
 
     public int getUserCount() {

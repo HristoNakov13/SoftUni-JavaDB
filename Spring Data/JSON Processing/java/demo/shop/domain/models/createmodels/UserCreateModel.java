@@ -1,8 +1,18 @@
 package demo.shop.domain.models.createmodels;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserCreateModel {
+    @XmlAttribute(name = "first-name")
     private String firstName;
+
+    @XmlAttribute(name = "last-name")
     private String lastName;
+
+    @XmlAttribute(name = "age")
     private Integer age;
 
     public UserCreateModel() {

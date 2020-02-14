@@ -1,11 +1,23 @@
 package demo.shop.domain.models.view.categorymodels;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import java.math.BigDecimal;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CategoryStatsModel {
+    @XmlAttribute(name = "name")
     private String category;
+
+    @XmlElement(name = "products-count")
     private int productsCount;
+
+    @XmlElement(name = "average-price")
     private double averagePrice;
+
+    @XmlElement(name = "total-revenue")
     private BigDecimal totalRevenue;
 
     public CategoryStatsModel() {

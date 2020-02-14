@@ -2,11 +2,19 @@ package demo.shop.domain.models.view.usersmodels;
 
 import demo.shop.domain.models.view.productsmodels.BoughtProductModel;
 
+import javax.xml.bind.annotation.*;
 import java.util.Set;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserWithSoldProductsModel {
+    @XmlAttribute(name = "first-name")
     private String firstName;
+
+    @XmlAttribute(name = "last-name")
     private String lastName;
+
+    @XmlElementWrapper(name = "sold-products")
+    @XmlElement(name = "product")
     private Set<BoughtProductModel> soldProducts;
 
     public UserWithSoldProductsModel() {

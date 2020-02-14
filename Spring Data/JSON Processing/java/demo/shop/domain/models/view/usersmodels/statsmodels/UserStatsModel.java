@@ -1,9 +1,22 @@
 package demo.shop.domain.models.view.usersmodels.statsmodels;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UserStatsModel {
+    @XmlAttribute(name = "first-name")
     private String firstName;
+
+    @XmlAttribute(name = "last-name")
     private String lastName;
+
+    @XmlAttribute(name = "age")
     private Integer age;
+
+    @XmlElement(name = "sold-products")
     private SoldProducts soldProducts;
 
     public UserStatsModel() {

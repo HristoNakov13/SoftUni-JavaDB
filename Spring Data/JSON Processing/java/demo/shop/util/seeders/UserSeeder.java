@@ -1,10 +1,12 @@
 package demo.shop.util.seeders;
 
+import demo.shop.domain.models.createmodels.ListUserCreateModel;
 import demo.shop.domain.models.createmodels.UserCreateModel;
 import demo.shop.services.UserService;
 import demo.shop.util.parsers.Parser;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,11 +22,19 @@ public class UserSeeder extends SeederImpl {
     }
 
     @Override
-    public void jsonSeedDb(String resourceFilename) throws IOException {
-        File usersFile = new ClassPathResource(resourceFilename).getFile();
-        String usersJson = super.getFileContent(usersFile);
+    public void SeedDbFromJson(String resourceFilename) throws IOException {
+        String usersJson = super.getFileContent(resourceFilename + ".json");
 
         List<UserCreateModel> users = Arrays.asList(this.parser.fromJSon(usersJson, UserCreateModel[].class));
         this.userService.saveAllToDb(users);
+    }
+
+    @Override
+    public void SeedDbFromXML(String resourceFilename) throws IOException, JAXBException {
+        String xml = super.getFileContent(resourceFilename + ".xml");
+
+        ListUserCreateModel listUserCreateModel = this.parser.fromXML(xml, ListUserCreateModel.class);
+
+        this.userService.saveAllToDb(listUserCreateModel.getUsers());
     }
 }
