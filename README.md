@@ -25,8 +25,7 @@ Spring Data courses:
 * [Spring Data Intro](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Spring%20Data%20Intro)
 * [Spring Data Advanced Quering](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Spring%20Data%20Advanced%20Quering)
 * [Spring Data Auto Mapping Objects](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/Spring%20Data%20Auto%20Mapping%20objects)
-* [JSON Processing](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/JSON%20Processing)
-* [XML Processing](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/XML%20Processing/people)
+* [JSON & XML Processing](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Spring%20Data/JSON%20Processing)
 * Workshop - MVC Project
 
 [Exams](https://github.com/HristoNakov13/SoftUni-JavaDB/tree/master/Exams)
