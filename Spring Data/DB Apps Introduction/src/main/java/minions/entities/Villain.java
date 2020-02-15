@@ -1,4 +1,4 @@
-package entities;
+package minions.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,7 @@ public class Villain {
     private String evilnessFactor;
     private List<Minion> minions;
 
-    public Villain(int id, String name) {
-        this.setId(id);
-        this.setName(name);
-        this.minions = new ArrayList<>();
-    }
-
-    public Villain(int id, String name, String evilnessFactor) {
-        this(id, name);
-        this.setEvilnessFactor(evilnessFactor);
+    public Villain() {
     }
 
     public int getId() {
@@ -44,11 +36,11 @@ public class Villain {
         this.evilnessFactor = evilnessFactor;
     }
 
-    public void addMinion(Minion minion) {
-        this.minions.add(minion);
-    }
-
     public List<Minion> getMinions() {
         return this.minions;
+    }
+
+    public void setMinions(List<Minion> minions) {
+        this.minions = minions;
     }
 }

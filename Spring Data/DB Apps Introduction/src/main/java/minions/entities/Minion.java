@@ -1,4 +1,4 @@
-package entities;
+package minions.entities;
 
 public class Minion {
     private int id;
@@ -6,16 +6,7 @@ public class Minion {
     private int age;
     private int townId;
 
-    public Minion(int id, String name, int age) {
-        this.setId(id);
-        this.setName(name);
-        this.setAge(age);
-        this.townId = 0;
-    }
-
-    public Minion(int id, String name, int age, int townId) {
-        this(id, name, age);
-        this.setTownId(townId);
+    public Minion() {
     }
 
     public int getId() {

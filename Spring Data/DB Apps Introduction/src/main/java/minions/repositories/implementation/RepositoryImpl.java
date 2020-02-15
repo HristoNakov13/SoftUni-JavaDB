@@ -1,4 +1,6 @@
-package repository;
+package minions.repositories.implementation;
+
+import minions.entities.Town;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,15 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RepositoryImpl<T> implements Repository<T> {
+public abstract class RepositoryImpl<T>{
     private Connection connection;
 
     protected RepositoryImpl(Connection connection) {
         this.connection = connection;
     }
 
-    @Override
-    public T getById(int id) {
+    public T findById(int id) {
         String queryString = "SELECT * " +
                 "FROM " + this.getTableName() +
                 "\nWHERE id = " + id;
@@ -34,7 +35,6 @@ public abstract class RepositoryImpl<T> implements Repository<T> {
         return result;
     }
 
-    @Override
     public boolean deleteById(int id) {
         String queryString = "DELETE FROM " + this.getTableName() +
                 "\nWHERE id = " + id;
@@ -51,8 +51,7 @@ public abstract class RepositoryImpl<T> implements Repository<T> {
         return false;
     }
 
-    @Override
-    public List<T> getAll() {
+    public List<T> findAll() {
         String queryString = "SELECT * FROM " + this.getTableName();
         List<T> result = new ArrayList<>();
         try {
@@ -67,6 +66,26 @@ public abstract class RepositoryImpl<T> implements Repository<T> {
         }
 
         return result;
+    }
+
+    public T findByName(String name) {
+        String queryString = "SELECT * FROM " + this.getTableName()
+                + " WHERE name = '" + name + "'";
+
+        T entity = null;
+
+        try {
+            PreparedStatement preparedStatement = this.getConnection().prepareStatement(queryString);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                entity = this.parseRow(resultSet);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
     }
 
     protected Connection getConnection() {
