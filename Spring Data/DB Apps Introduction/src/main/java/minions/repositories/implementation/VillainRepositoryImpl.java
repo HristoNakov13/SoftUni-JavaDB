@@ -149,25 +149,18 @@ public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements Vi
         }
     }
 
-//    @Override
-//    public Villain findByName(String villainName) {
-//        String queryString = "SELECT * " +
-//                "FROM villains " +
-//                "WHERE name = ? " +
-//                "LIMIT 1;";
-//        Villain villain = null;
-//
-//        try {
-//            PreparedStatement preparedStatement = this.getConnection().prepareStatement(queryString);
-//            preparedStatement.setString(1, villainName);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            resultSet.next();
-//
-//            villain = this.parseRow(resultSet);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return villain;
-//    }
+    @Override
+    public void deleteByIdAndReleaseMinions(int villainId) {
+        String releaseMinions = "DELETE FROM minions_villains " +
+                "WHERE villain_id = ?;";
+
+        try {
+            PreparedStatement preparedStatement = this.getConnection().prepareStatement(releaseMinions);
+            preparedStatement.setInt(1, villainId);
+            preparedStatement.execute();
+            super.deleteById(villainId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -119,6 +119,20 @@ public class VillainService {
         return result;
     }
 
+    public String deleteByIdAndReleaseMinions(int villainId) {
+        Villain villain = this.villainRepository.findById(villainId);
+
+        if (villain == null) {
+            return "No such villain was found";
+        }
+
+        this.villainRepository.deleteByIdAndReleaseMinions(villainId);
+
+        return String.format("%s was deleted\r\n%s minions released",
+                villain.getName(),
+                villain.getMinions().size());
+    }
+
     public void saveVillainToDb(Villain villain) {
         this.villainRepository.save(villain);
     }

@@ -14,4 +14,6 @@ public interface MinionRepository {
     List<Minion> findAll();
 
     Minion findByName(String minionName);
+
+    void callGetOlderProcedure(int minionId);
 }

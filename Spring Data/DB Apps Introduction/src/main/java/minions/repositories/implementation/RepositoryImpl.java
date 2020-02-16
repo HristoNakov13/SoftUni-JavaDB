@@ -26,8 +26,9 @@ public abstract class RepositoryImpl<T>{
             PreparedStatement query = this.connection.prepareStatement(queryString);
 //            query.setInt(1, id);
             ResultSet resultSet = query.executeQuery();
-            resultSet.next();
-            result = this.parseRow(resultSet);
+            if (resultSet.next()) {
+                result = this.parseRow(resultSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

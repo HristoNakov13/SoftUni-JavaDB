@@ -10,8 +10,6 @@ public interface VillainRepository {
 
     void save(Villain villain);
 
-    boolean deleteById(int id);
-
     List<Villain> findAll();
 
     List<Villain> findAllVillainsByMinionsGreaterThan(int greaterThan);
@@ -19,4 +17,6 @@ public interface VillainRepository {
     Villain findByName(String villainName);
 
     void addMinionToVillain(Villain villain, Minion minion);
+
+    void deleteByIdAndReleaseMinions(int villainId);
 }
