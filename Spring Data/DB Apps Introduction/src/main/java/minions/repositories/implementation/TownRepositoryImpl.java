@@ -39,12 +39,12 @@ public class TownRepositoryImpl extends RepositoryImpl<Town> implements TownRepo
     //if town already exists it gets update otherwise created
     @Override
     public void save(Town town) {
-        String queryString = "INSERT INTO towns(name, country) " +
+        String queryString = "INSERT INTO " + this.getTableName() + "(name, country) " +
                 "VALUES(?, ?)";
 
         Town townExists = this.findById(town.getId());
         if (townExists != null) {
-            queryString = "UPDATE towns SET name = ?, country = ? WHERE id = " + townExists.getId();
+            queryString = "UPDATE " + this.getTableName() + " SET name = ?, country = ? WHERE id = " + townExists.getId();
         }
 
         try {
@@ -61,8 +61,8 @@ public class TownRepositoryImpl extends RepositoryImpl<Town> implements TownRepo
     @Override
     public List<Town> findAllByCountry(String countryName) {
         String queryString = "SELECT * " +
-                "FROM towns " +
-                "WHERE country = ?";
+                "FROM " + this.getTableName() +
+                " WHERE country = ?";
 
         List<Town> towns = new ArrayList<>();
         try {

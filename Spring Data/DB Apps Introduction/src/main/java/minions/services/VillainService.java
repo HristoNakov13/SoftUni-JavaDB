@@ -28,7 +28,7 @@ public class VillainService {
     public String getVillainAndMinionNamesByMinionCount(int minionCount) {
         List<Villain> villains = this.villainRepository.findAllVillainsByMinionsGreaterThan(minionCount);
         if (villains.isEmpty()) {
-            return "No minions found.";
+            return "No villains with such minions count found.";
         }
 
         StringBuilder villainsInfo = new StringBuilder();
@@ -69,7 +69,7 @@ public class VillainService {
 
     public String addMinionToVillain(String[] minionData, String villainName) {
         String DEFAULT_EVILNESS_FACTOR = "evil";
-        String DEFAULT_COUNTRY = "Bulgaria";
+        String DEFAULT_NO_COUNTRY = null;
         String result = "";
 
         Villain villain = this.villainRepository.findByName(villainName);
@@ -90,11 +90,10 @@ public class VillainService {
 
         Town town  = this.townRepository.findByName(townName);
 
-        //lol no country is specified in the input. Default is set as Bulgaria
         if (town == null) {
             town = new Town();
             town.setName(townName);
-            town.setCountry(DEFAULT_COUNTRY);
+            town.setCountry(DEFAULT_NO_COUNTRY);
             this.townRepository.save(town);
 
             //fetching it again so I can access the assigned ID

@@ -16,6 +16,7 @@ import java.util.List;
 public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements VillainRepository {
     private MinionRepository minionsRepository;
     private static String TABLE_NAME = "villains";
+    private static String MAPPING_VILLAINS_MINIONS_TABLE = "minions_villains";
 
     public VillainRepositoryImpl(Connection connection, MinionRepository minionRepository) {
         super(connection);
@@ -63,8 +64,8 @@ public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements Vi
 
     private List<Integer> getMinionIds(int villainId) {
         String queryString = "SELECT vm.minion_id" +
-                "\nFROM villains v" +
-                "\nINNER JOIN minions_villains vm" +
+                "\nFROM " + this.getTableName() + " v" +
+                "\nINNER JOIN " + MAPPING_VILLAINS_MINIONS_TABLE + " vm" +
                 "\nON v.id = vm.villain_id" +
                 "\nWHERE v.id = ?";
 
@@ -108,8 +109,8 @@ public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements Vi
     @Override
     public List<Villain> findAllVillainsByMinionsGreaterThan(int greaterThan) {
         String queryString = "SELECT v.id, v.name, v.evilness_factor " +
-                "FROM villains v " +
-                "INNER JOIN minions_villains mv " +
+                "FROM " + this.getTableName() + " v " +
+                "INNER JOIN " + MAPPING_VILLAINS_MINIONS_TABLE + " mv " +
                 "ON mv.villain_id = v.id " +
                 "GROUP BY v.id " +
                 "HAVING COUNT(mv.minion_id) > ? " +
@@ -136,7 +137,7 @@ public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements Vi
 
     @Override
     public void addMinionToVillain(Villain villain, Minion minion) {
-        String queryString = "INSERT INTO minions_villains(minion_id, villain_id) " +
+        String queryString = "INSERT INTO " + MAPPING_VILLAINS_MINIONS_TABLE + "(minion_id, villain_id) " +
                 "VALUES(?, ?)";
         try {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(queryString);
@@ -151,8 +152,8 @@ public class VillainRepositoryImpl extends RepositoryImpl<Villain> implements Vi
 
     @Override
     public void deleteByIdAndReleaseMinions(int villainId) {
-        String releaseMinions = "DELETE FROM minions_villains " +
-                "WHERE villain_id = ?;";
+        String releaseMinions = "DELETE FROM " + MAPPING_VILLAINS_MINIONS_TABLE +
+                " WHERE villain_id = ?;";
 
         try {
             PreparedStatement preparedStatement = this.getConnection().prepareStatement(releaseMinions);

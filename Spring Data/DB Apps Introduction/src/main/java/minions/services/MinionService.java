@@ -38,7 +38,12 @@ public class MinionService {
 
     public String increaseAgeAndLowerCaseNames(int[] minionIds) {
         List<Minion> editMinions = new ArrayList<>();
-        Arrays.stream(minionIds).forEach(id -> editMinions.add(this.minionRepository.findById(id)));
+        Arrays.stream(minionIds).forEach(id -> {
+            Minion minion = this.minionRepository.findById(id);
+            if (minion != null) {
+                editMinions.add(minion);
+            }
+        });
 
         editMinions.forEach(minion -> {
             minion.setAge(minion.getAge() + 1);
@@ -50,9 +55,9 @@ public class MinionService {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < allMinions.size(); i++) {
             result.append(String.format("%s %s %s",
-                        i + 1,
-                        allMinions.get(i).getName(),
-                        allMinions.get(i).getAge()))
+                    i + 1,
+                    allMinions.get(i).getName(),
+                    allMinions.get(i).getAge()))
                     .append(System.lineSeparator());
         }
 
