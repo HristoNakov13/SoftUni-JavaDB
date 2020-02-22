@@ -61,7 +61,7 @@ public class Project {
         this.endDate = endDate;
     }
 
-    @ManyToMany(mappedBy = "projects")
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
     public Set<Employee> getEmployees() {
         return employees;
     }

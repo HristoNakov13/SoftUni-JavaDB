@@ -68,7 +68,7 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     public Department getDepartment() {
         return department;
@@ -78,7 +78,7 @@ public class Employee {
         this.department = department;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", referencedColumnName = "employee_id")
     public Employee getManager() {
         return manager;
@@ -106,7 +106,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     public Address getAddress() {
         return address;
@@ -116,7 +116,7 @@ public class Employee {
         this.address = address;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "employees_projects",
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"))

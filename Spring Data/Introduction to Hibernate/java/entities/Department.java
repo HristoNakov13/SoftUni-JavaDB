@@ -31,7 +31,7 @@ public class Department {
         this.name = name;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id",referencedColumnName = "employee_id")
     public Employee getManager() {
         return manager;
@@ -41,7 +41,7 @@ public class Department {
         this.manager = manager;
     }
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
     public Set<Employee> getEmployees() {
         return employees;
     }

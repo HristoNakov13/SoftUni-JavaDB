@@ -31,7 +31,7 @@ public class Address {
         this.text = text;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "town_id",referencedColumnName = "town_id")
     public Town getTown() {
         return town;
@@ -41,7 +41,7 @@ public class Address {
         this.town = town;
     }
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
     public Set<Employee> getEmployees() {
         return employees;
     }
