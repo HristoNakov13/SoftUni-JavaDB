@@ -28,6 +28,11 @@ public class TownRepositoryImpl extends RepositoryImpl<Town> implements TownRepo
     }
 
     @Override
+    public Town saveAndFlush(Town town) {
+        return super.saveAndFlush(town);
+    }
+
+    @Override
     public List<Town> findByNameShorterThan(int charsCount) {
         String queryString = "SELECT t FROM Town t WHERE LENGTH(t.name) < :charsCount";
 
@@ -35,5 +40,22 @@ public class TownRepositoryImpl extends RepositoryImpl<Town> implements TownRepo
                 .createQuery(queryString, Town.class)
                 .setParameter("charsCount", charsCount)
                 .getResultList();
+    }
+
+    @Override
+    public Town findByName(String townName) {
+        String queryString = "SELECT t FROM Town t WHERE t.name = :townName";
+
+        return super.getEntityManager().createQuery(queryString, Town.class)
+                .setParameter("townName", townName)
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        super.deleteById(id);
     }
 }

@@ -11,5 +11,11 @@ public interface TownRepository {
 
     void save(Town town);
 
+    Town saveAndFlush(Town town);
+
     List<Town> findByNameShorterThan(int charsCount);
+
+    Town findByName(String townName);
+
+    void deleteById(int id);
 }

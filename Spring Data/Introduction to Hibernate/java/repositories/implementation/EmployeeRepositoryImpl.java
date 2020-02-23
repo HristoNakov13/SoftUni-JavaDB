@@ -28,10 +28,15 @@ public class EmployeeRepositoryImpl extends RepositoryImpl<Employee> implements 
     }
 
     @Override
+    public Employee saveAndFlush(Employee employee) {
+        return super.saveAndFlush(employee);
+    }
+
+    @Override
     public List<Employee> findByFullName(String fullName) {
         String queryString = "SELECT e FROM Employee e WHERE CONCAT(e.firstName, ' ', e.lastName) = :fullName";
 
-        return  super.getEntityManager()
+        return super.getEntityManager()
                 .createQuery(queryString, Employee.class)
                 .setParameter("fullName", fullName)
                 .getResultList();
@@ -49,12 +54,41 @@ public class EmployeeRepositoryImpl extends RepositoryImpl<Employee> implements 
 
     @Override
     public List<Employee> findByDepartment(String departmentName) {
-        String queryString = "SELECT e FROM Employee e INNER JOIN e.department d WHERE d.name = :departmentName" +
-                " ORDER BY e.salary, e.id";
+        String queryString = "SELECT e FROM Employee e INNER JOIN e.department d WHERE d.name = :departmentName";
 
         return super.getEntityManager()
                 .createQuery(queryString, Employee.class)
                 .setParameter("departmentName", departmentName)
+                .getResultList();
+    }
+
+    @Override
+    public List<Employee> findByLastName(String lastName) {
+        String queryString = "SELECT e FROM Employee e WHERE e.lastName = :lastNameParam";
+
+        return super.getEntityManager()
+                .createQuery(queryString, Employee.class)
+                .setParameter("lastNameParam", lastName)
+                .getResultList();
+    }
+
+    @Override
+    public List<Employee> findByAddressId(int addressId) {
+        String queryString = "SELECT e FROM Employee e INNER JOIN e.address a WHERE a.id = :addressId";
+
+        return super.getEntityManager()
+                .createQuery(queryString, Employee.class)
+                .setParameter("addressId", addressId)
+                .getResultList();
+    }
+
+    @Override
+    public List<Employee> findByFirstNameStartingWith(String startingWith) {
+        String queryString = "SELECT e FROM Employee e WHERE e.firstName LIKE CONCAT(:startingWith, '%')";
+
+        return super.getEntityManager()
+                .createQuery(queryString, Employee.class)
+                .setParameter("startingWith", startingWith)
                 .getResultList();
     }
 }

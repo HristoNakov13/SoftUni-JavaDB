@@ -12,9 +12,17 @@ public interface EmployeeRepository {
 
     void save(Employee employee);
 
+    Employee saveAndFlush(Employee employee);
+
     List<Employee> findByFullName(String fullName);
 
     List<Employee> findBySalaryGreaterThan(BigDecimal salary);
 
     List<Employee> findByDepartment(String departmentName);
+
+    List<Employee> findByLastName(String lastName);
+
+    List<Employee> findByAddressId(int addressId);
+
+    List<Employee> findByFirstNameStartingWith(String startingWith);
 }

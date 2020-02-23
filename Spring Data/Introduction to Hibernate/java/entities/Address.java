@@ -41,7 +41,7 @@ public class Address {
         this.town = town;
     }
 
-    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "address", fetch = FetchType.EAGER)
     public Set<Employee> getEmployees() {
         return employees;
     }

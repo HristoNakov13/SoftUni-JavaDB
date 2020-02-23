@@ -1,7 +1,11 @@
 package services;
 
+import entities.Address;
+import entities.Employee;
 import entities.Town;
+import repositories.AddressRepository;
 import repositories.TownRepository;
+import repositories.implementation.AddressRepositoryImpl;
 import repositories.implementation.TownRepositoryImpl;
 
 import javax.persistence.EntityManager;
@@ -10,9 +14,11 @@ import java.util.stream.Collectors;
 
 public class TownService {
     private TownRepository townRepository;
+    private AddressRepository addressRepository;
 
     public TownService(EntityManager entityManager) {
         this.townRepository = new TownRepositoryImpl(entityManager);
+        this.addressRepository = new AddressRepositoryImpl(entityManager);
     }
 
     /**
@@ -38,5 +44,26 @@ public class TownService {
                     this.townRepository.save(town);
                     return town.getName();
                 }).collect(Collectors.joining("\r\n"));
+    }
+
+    public String deleteTownAndItsAddresses(String townName) {
+        Town town = this.townRepository.findByName(townName);
+
+        if (town == null) {
+            return String.format("Town %s does not exist in the database.", townName);
+        }
+
+        int addressesCount = town.getAddresses().size();
+        String addresses = addressesCount == 1 ? "address" : "addresses";
+
+        town.getAddresses()
+                .forEach(address -> this.addressRepository.deleteById(address.getId()));
+
+        this.townRepository.deleteById(town.getId());
+
+        return String.format("%s %s in %s deleted",
+                addressesCount,
+                addresses,
+                townName);
     }
 }
