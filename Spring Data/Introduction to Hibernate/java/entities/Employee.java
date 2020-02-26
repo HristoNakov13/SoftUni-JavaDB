@@ -108,7 +108,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     public Address getAddress() {
         return address;

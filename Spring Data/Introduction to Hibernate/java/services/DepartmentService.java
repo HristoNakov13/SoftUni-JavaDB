@@ -19,17 +19,25 @@ public class DepartmentService {
     }
 
     public String getDepartmentMaxSalaryNotInRange(BigDecimal from, BigDecimal to) {
-        List<Department> departments = this.departmentRepository.findByMaxSalaryBetween(from, to);
+        List<Department> departments = this.departmentRepository.findByMaxSalaryNotBetween(from, to);
 
-        return departments.stream().map(department -> {
-            BigDecimal maxSalary = department.getEmployees().stream().map(Employee::getSalary)
-                    .sorted(Comparator.reverseOrder())
-                    .findFirst()
-                    .orElse(BigDecimal.valueOf(0));
+        if (departments.isEmpty()) {
+            return String.format("No departments found with max salary not in range from: %s to: %s",
+                    from,
+                    to);
+        }
 
-            return String.format("%s %s",
-                    department.getName(),
-                    maxSalary);
-        }).collect(Collectors.joining("\r\n"));
+        return departments.stream()
+                .map(department -> {
+                    BigDecimal maxSalary = department.getEmployees()
+                            .stream()
+                            .map(Employee::getSalary)
+                            .max(Comparator.naturalOrder())
+                            .orElse(BigDecimal.valueOf(0));
+
+                    return String.format("%s %s",
+                            department.getName(),
+                            maxSalary);
+                }).collect(Collectors.joining("\r\n"));
     }
 }

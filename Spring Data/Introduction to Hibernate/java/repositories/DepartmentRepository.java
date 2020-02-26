@@ -16,5 +16,5 @@ public interface DepartmentRepository {
 
     Department findByName(String departmentName);
 
-    List<Department> findByMaxSalaryBetween(BigDecimal from, BigDecimal to);
+    List<Department> findByMaxSalaryNotBetween(BigDecimal from, BigDecimal to);
 }

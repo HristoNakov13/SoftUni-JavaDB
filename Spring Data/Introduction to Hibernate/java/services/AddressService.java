@@ -1,12 +1,10 @@
 package services;
 
 import entities.Address;
-import entities.Town;
 import repositories.AddressRepository;
 import repositories.implementation.AddressRepositoryImpl;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class AddressService {
@@ -29,12 +27,12 @@ public class AddressService {
                 .stream()
                 .filter(address -> address.getEmployees() != null)
                 .map(address -> {
-                    String townName = address.getTown() == null ? "" : ", " + address.getTown().getName();
+                            String townName = address.getTown() == null ? "" : ", " + address.getTown().getName();
 
-                    return String.format("%s%s - %s employees",
-                            address.getText(),
-                            townName,
-                            address.getEmployees().size());
+                            return String.format("%s%s - %s employees",
+                                    address.getText(),
+                                    townName,
+                                    address.getEmployees().size());
                         }
                 ).collect(Collectors.joining("\r\n"));
     }

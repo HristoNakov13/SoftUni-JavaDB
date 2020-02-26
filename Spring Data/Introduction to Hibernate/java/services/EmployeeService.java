@@ -30,14 +30,16 @@ public class EmployeeService {
     }
 
     public String getFirstNamesBySalaryGreaterThan(BigDecimal salary) {
-        return this.employeeRepository.findBySalaryGreaterThan(salary)
+        return this.employeeRepository
+                .findBySalaryGreaterThan(salary)
                 .stream()
                 .map(Employee::getFirstName)
                 .collect(Collectors.joining("\r\n"));
     }
 
     public String getEmployeesInfoFromDepartment(String departmentName) {
-        return this.employeeRepository.findByDepartment(departmentName)
+        return this.employeeRepository
+                .findByDepartment(departmentName)
                 .stream()
                 .sorted((e1, e2) -> {
                     int sort = (e1.getSalary().subtract(e2.getSalary())).intValue();
@@ -131,11 +133,12 @@ public class EmployeeService {
 
         return employees
                 .stream()
-                .map(employee -> String.format("%s %s - %s - ($%s)",
-                        employee.getFirstName(),
-                        employee.getLastName(),
-                        employee.getJobTitle(),
-                        employee.getSalary()))
+                .map(employee ->
+                        String.format("%s %s - %s - ($%s)",
+                                employee.getFirstName(),
+                                employee.getLastName(),
+                                employee.getJobTitle(),
+                                employee.getSalary()))
                 .collect(Collectors.joining("\r\n"));
     }
 }

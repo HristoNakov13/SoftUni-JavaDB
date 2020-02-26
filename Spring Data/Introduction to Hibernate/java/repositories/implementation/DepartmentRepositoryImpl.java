@@ -46,7 +46,7 @@ public class DepartmentRepositoryImpl extends RepositoryImpl<Department> impleme
     }
 
     @Override
-    public List<Department> findByMaxSalaryBetween(BigDecimal from, BigDecimal to) {
+    public List<Department> findByMaxSalaryNotBetween(BigDecimal from, BigDecimal to) {
         String queryString = "SELECT d FROM Department d " +
                 "INNER JOIN d.employees e " +
                 "GROUP BY d.id " +

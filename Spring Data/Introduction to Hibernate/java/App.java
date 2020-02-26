@@ -53,10 +53,10 @@ public class App {
 //
 ////        #5
 //        String rndDepartment = "Research and Development";
-////
+
 //        System.out.println(employeeService.getEmployeesInfoFromDepartment(rndDepartment));
-//
-////        #6
+
+//////        #6
 //        String lastName = "Brown";
 //        String addressText = "Vitoshka 15";
 //        Address address = addressService.createAddress(addressText);
@@ -104,6 +104,14 @@ public class App {
 //        BigDecimal from = BigDecimal.valueOf(30000);
 //        BigDecimal to = BigDecimal.valueOf(70000);
 //
+//        //values trying to produce empty result
+//        //currently no departments with salaries outside this range
+//        BigDecimal fromER = BigDecimal.valueOf(0);
+//        BigDecimal toER = BigDecimal.valueOf(1000000);
+//
 //        System.out.println(departmentService.getDepartmentMaxSalaryNotInRange(from, to));
+//        System.out.println("--------------");
+//        System.out.println(departmentService.getDepartmentMaxSalaryNotInRange(fromER, toER));
+
     }
 }

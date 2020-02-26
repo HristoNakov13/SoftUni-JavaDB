@@ -5,7 +5,9 @@ import repositories.ProjectRepository;
 import repositories.implementation.ProjectRepositoryImpl;
 
 import javax.persistence.EntityManager;
+import java.sql.Timestamp;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectService {
@@ -25,8 +27,8 @@ public class ProjectService {
                                 "\r\n\tProject End Date: %s",
                         project.getName(),
                         project.getDescription(),
-                        project.getStartDate().toString(),
-                        project.getEndDate() == null ? "null" : project.getEndDate().toString()
+                        project.getStartDate(),
+                        project.getEndDate()
                 )).collect(Collectors.joining("\r\n"));
     }
 }

@@ -33,7 +33,7 @@ public class ProjectRepositoryImpl extends RepositoryImpl<Project> implements Pr
 
     @Override
     public List<Project> findLastTenStarted() {
-        String queryString = "SELECT p FROM Project p ORDER BY p.id DESC";
+        String queryString = "SELECT p FROM Project p ORDER BY p.startDate DESC";
 
         return super.getEntityManager()
                 .createQuery(queryString, Project.class)
