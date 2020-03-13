@@ -1,11 +1,18 @@
 package com.example.demo.controller;
+
+import com.example.demo.domain.models.ReducedBook;
 import com.example.demo.service.AuthorService;
 import com.example.demo.service.BookService;
 import com.example.demo.service.CategoryService;
+import com.example.demo.util.enums.MonthNumericValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
+import java.security.InvalidParameterException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +38,7 @@ public class BookShopController implements CommandLineRunner {
 
         Scanner scanner = new Scanner(System.in);
 
-////        #1
+//        #1
 //        this.authorService.seedDb(AUTHORS_FILENAME);
 //        this.categoryService.seedDb(CATEGORIES_FILENAME);
 //        this.bookService.seedDb(BOOKS_FILENAME);
@@ -51,60 +58,111 @@ public class BookShopController implements CommandLineRunner {
 
 
 //        #2.1
+//        System.out.println("Age restriction:");
 //        String ageRestriction = scanner.nextLine();
 //
-//        List<String> titles = this.bookService.getBookTitlesByAgeRestriction(ageRestriction);
-//        titles.forEach(System.out::println);
+//        System.out.println(this.bookService.getTitlesByAgeRestriction(ageRestriction));
+
 
 //        #2.2
-//        List<String> goldenBooks = this.bookService.getGoldenEditionBookTitles();
-//        goldenBooks.forEach(System.out::println);
+//        String editionType = "gold";
+//        int copiesCount = 5000;
+//        System.out.println(this.bookService.getBookTitlesByEditionAndCopiesLessThan(editionType, copiesCount));
 
 //        #2.3
-//        List<String> booksByPrice = this.bookService.getTitlesByPriceLowerThanFiveHigherThanForty();
-//
-//        booksByPrice.forEach(System.out::println);
+//        BigDecimal lessThan = BigDecimal.valueOf(5);
+//        BigDecimal higherThan = BigDecimal.valueOf(40);
+//        System.out.println(this.bookService.getTitlesByPriceLowerThanOrPriceHigherThan(lessThan, higherThan));
 
 //        #2.4
+//        System.out.println("Not released in year:");
 //        int year = Integer.parseInt(scanner.nextLine());
-//        List<String> booksAfter = this.bookService.getTitlesByReleaseDateDifferentThanYear(year);
-//
-//        booksAfter.forEach(System.out::println);
+//        System.out.println(this.bookService.getTitlesByReleaseDateDifferentThanYear(year));
+
 
 //        #2.5
+//        System.out.println("Release date before:");
 //        String input = scanner.nextLine();
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
 //        Date releaseDateBefore = formatter.parse(input);
 //
-//        List<String> booksBefore = this.bookService.getTitlesByReleaseDateBefore(releaseDateBefore);
-//        booksBefore.forEach(System.out::println);
+//        System.out.println(this.bookService.getTitlesByReleaseDateBefore(releaseDateBefore));
 
 //        #2.6
+//        System.out.println("Author name ends with:");
 //        String endsWith = scanner.nextLine();
-//        List<String> authorsStartingWith = this.authorService.getNamesByFirstNameEndingWith(endsWith);
-//
-//        authorsStartingWith.forEach(System.out::println);
+//        System.out.println(this.authorService.getNamesByFirstNameEndingWith(endsWith));
 
-//        2.7
+//        #2.7
+//        System.out.println("Title containing:");
 //        String keyword = scanner.nextLine();
-//        List<String> titles = this.bookService.getTitlesByTitleContaining(keyword);
-//
-//        titles.forEach(System.out::println);
+//        System.out.println(this.bookService.getTitlesByTitleContaining(keyword));
 
 //        #2.8
+//        System.out.println("Author last name starting with:");
 //        String nameStartingWith = scanner.nextLine();
 //
-//        List<String> booksInfo = this.authorService.getBooksByAuthorLastNameStartingWith(nameStartingWith);
-//
-//        booksInfo.forEach(System.out::println);
+//        System.out.println(this.authorService.getBooksByAuthorLastNameStartingWith(nameStartingWith));
 
 //        #2.9
+//        System.out.println("Title longer than:");
 //        int charactersCount = Integer.parseInt(scanner.nextLine());
-//        System.out.println(this.bookService.getBookCountWithTitleLongerThan(charactersCount));
+//
+//        String comment = String.format("There are %s books with longer title than %s symbols",
+//                this.bookService.getBookCountWithTitleLengthLongerThan(charactersCount),
+//                charactersCount);
+//
+//        System.out.println(comment);
 
 //        #2.10
-        List<String> authorsInfo = this.authorService.getAllAuthorsAndBookCopiesCount();
+//        System.out.println(this.authorService.getAllAuthorsAndBookCopiesCount());
 
-        authorsInfo.forEach(System.out::println);
+//        #2.11
+
+//        System.out.println("Book title:");
+//        String title = scanner.nextLine();
+//
+//        try {
+//            ReducedBook reducedBook = this.bookService.getReducedBookByTitle(title);
+//            String print = String.format("%s %s %s %s",
+//                    reducedBook.getTitle(),
+//                    reducedBook.getEditionType(),
+//                    reducedBook.getAgeRestriction(),
+//                    reducedBook.getPrice());
+//            System.out.println(print);
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//        }
+
+//        #2.12
+
+//        System.out.println("Release date after:");
+//        String[] releasedAfter = scanner.nextLine().split("\\s+");
+//
+//        System.out.println("Increase copies by:");
+//        int increaseBy = Integer.parseInt(scanner.nextLine());
+//
+//        String day = releasedAfter[0];
+//        int month = MonthNumericValues.valueOf(releasedAfter[1]).getMonthValue();
+//        String year = releasedAfter[2];
+//
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd M yyyy");
+//        Date releaseDateAfter = formatter.parse(String.format("%s %s %s", day, month, year));
+//
+//        System.out.println(bookService.increaseCopiesForBooksReleasedAfter(releaseDateAfter, increaseBy));
+
+//       #2.13
+//        keep in mind the output might be different due to previous manipulations
+
+//        System.out.println("Copies less than:");
+//        int copiesCount = Integer.parseInt(scanner.nextLine());
+//
+//        System.out.println(this.bookService.deleteBooksByCopiesLowerThan(copiesCount));
+
+//        #2.1
+//        Results may vary due to the randomized author - book assignment
+//        System.out.println("Author full name:");
+//        String authorFullName = scanner.nextLine();
+//        System.out.println(this.authorService.getTotalBooksCountByAuthorFullName(authorFullName));
     }
 }

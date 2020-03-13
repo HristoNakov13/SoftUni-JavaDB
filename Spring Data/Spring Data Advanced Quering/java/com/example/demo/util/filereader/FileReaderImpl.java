@@ -16,10 +16,8 @@ public class FileReaderImpl implements FileReader {
 
     private File getResourceFile(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
-        System.out.println(file.getName());
 
-        return file;
+        return new File(classLoader.getResource(fileName).getFile());
     }
 
     public List<String> getFileContent(String fileName) throws IOException {

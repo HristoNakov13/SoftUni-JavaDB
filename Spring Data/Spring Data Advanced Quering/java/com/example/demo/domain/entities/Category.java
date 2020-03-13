@@ -22,7 +22,7 @@ public class Category extends BaseEntity {
     }
 
     @ManyToMany(mappedBy = "categories", targetEntity = Book.class,
-            fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+            fetch = FetchType.LAZY)
     public Set<Book> getBooks() {
         return books;
     }

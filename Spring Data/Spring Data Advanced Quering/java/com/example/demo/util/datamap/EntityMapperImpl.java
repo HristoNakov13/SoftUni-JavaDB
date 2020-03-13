@@ -46,7 +46,7 @@ public class EntityMapperImpl implements EntityMapper {
         }
 
         titleBuilder.delete(titleBuilder.lastIndexOf(" "), titleBuilder.lastIndexOf(" "));
-        String title = titleBuilder.toString();
+        String title = titleBuilder.toString().trim();
 
         Book book = new Book();
         book.setEditionType(editionType);

@@ -20,7 +20,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     List<Book> findAllByEditionTypeAndCopiesLessThan(EditionType editionType, int copies);
 
-    List<Book> findAllByPriceGreaterThanOrPriceLessThan(BigDecimal higher, BigDecimal lower);
+    List<Book> findAllByPriceLessThanOrPriceGreaterThan(BigDecimal higher, BigDecimal lower);
 
     List<Book> findAllByReleaseDateAfterOrReleaseDateBefore(Date before, Date after);
 
@@ -30,4 +30,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     @Query(value = "SELECT COUNT(b) FROM Book b WHERE LENGTH(b.title) > :characters")
     int findCountByTitleLongerThan(@Param("characters") int characters);
+
+    Book findBookByTitle(String title);
+
+    List<Book> findAllByCopiesLessThan(int copiesCount);
 }

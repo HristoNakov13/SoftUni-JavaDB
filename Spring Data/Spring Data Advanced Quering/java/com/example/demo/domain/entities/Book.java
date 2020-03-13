@@ -99,7 +99,7 @@ public class Book extends BaseEntity{
         this.author = author;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "books_categories",
             joinColumns = {@JoinColumn(name = "book_id", referencedColumnName = "id")},
