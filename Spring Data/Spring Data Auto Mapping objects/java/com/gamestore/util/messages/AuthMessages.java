@@ -1,7 +1,7 @@
-package com.gamestore.services.messages;
+package com.gamestore.util.messages;
 
 public class AuthMessages {
-    public static String INVALID_USERNAME = "Username must be at least 1 character long";
+    public static String INVALID_USERNAME = "Username must be at least 1 character long.";
     public static String INVALID_EMAIL = "Invalid email.";
     public static String INVALID_PASSWORD = "Password must be 6 characters long and contain at least 1 uppercase, 1 lowercase letter and 1 digit.";
     public static String EMAIL_INUSE = "There is an existing user with that email.";

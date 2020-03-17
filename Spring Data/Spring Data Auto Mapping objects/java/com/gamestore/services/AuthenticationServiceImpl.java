@@ -3,8 +3,8 @@ package com.gamestore.services;
 import com.gamestore.domain.entities.enums.UserType;
 import com.gamestore.domain.models.UserCreateModel;
 import com.gamestore.domain.models.UserModel;
-import com.gamestore.services.exceptions.InvalidUserCredentials;
-import com.gamestore.services.messages.AuthMessages;
+import com.gamestore.util.exceptions.InvalidUserCredentials;
+import com.gamestore.util.messages.AuthMessages;
 import com.gamestore.services.session.UserSession;
 import com.gamestore.services.validators.RegisterValidator;
 import org.springframework.stereotype.Service;
@@ -27,18 +27,15 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             return AuthMessages.EMAIL_INUSE;
         }
 
-        if (!RegisterValidator.isValidEmail(email)) {
-            return AuthMessages.INVALID_EMAIL;
+        try {
+            RegisterValidator.validateCredentials(email, fullName, password, confirmPassword);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
         }
 
-        if (!RegisterValidator.isValidFullName(fullName)) {
-            return String.format(AuthMessages.INVALID_USERNAME, fullName);
-        }
-
-        if (!RegisterValidator.isValidPassword(password, confirmPassword)) {
-            return AuthMessages.INVALID_PASSWORD;
-        }
-        UserType userType = this.userService.isFirstToRegister() ? UserType.ADMINISTRATOR : UserType.BASIC;
+        UserType userType = this.userService.isFirstToRegister()
+                ? UserType.ADMINISTRATOR
+                : UserType.BASIC;
 
         UserCreateModel userCreateModel = new UserCreateModel(fullName, email, password, userType);
         this.userService.registerUser(userCreateModel);
@@ -69,6 +66,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         if (this.userSession.hasUserLogged()) {
             String fullName = this.userSession.getUser().getFullName();
             this.userSession.logout();
+
             return String.format(AuthMessages.LOGOUT_SUCCESS, fullName);
         }
 

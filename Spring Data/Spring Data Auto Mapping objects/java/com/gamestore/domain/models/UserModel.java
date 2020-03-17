@@ -3,6 +3,7 @@ package com.gamestore.domain.models;
 import com.gamestore.domain.entities.enums.UserType;
 
 public class UserModel {
+    private Integer id;
     private String fullName;
     private String email;
     private UserType userType;
@@ -38,5 +39,13 @@ public class UserModel {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -1,14 +1,17 @@
 package com.gamestore.services.validators;
 
+import com.gamestore.util.exceptions.InvalidUserCredentials;
+import com.gamestore.util.messages.AuthMessages;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterValidator {
-    public static boolean isValidFullName(String fullName) {
+    private static boolean isValidFullName(String fullName) {
         return !fullName.isEmpty();
     }
 
-    public static boolean isValidPassword(String password, String confirmPassword) {
+    private static boolean isValidPassword(String password, String confirmPassword) {
         if (password.length() < 6 || !password.equals(confirmPassword)) {
             return false;
         }
@@ -25,10 +28,24 @@ public class RegisterValidator {
         return  caseMatcher.find() && digitMatcher.find();
     }
 
-    public static boolean isValidEmail(String email) {
+    private static boolean isValidEmail(String email) {
         Pattern emailPattern = Pattern.compile("\\w+@[a-zA-Z]+\\.[a-zA-Z]+");
         Matcher emailMatcher = emailPattern.matcher(email);
 
         return emailMatcher.find();
+    }
+
+    public static void validateCredentials(String email, String fullName, String password, String confirmPassword) {
+        if (!RegisterValidator.isValidEmail(email)) {
+            throw new IllegalArgumentException(AuthMessages.INVALID_EMAIL);
+        }
+
+        if (!RegisterValidator.isValidFullName(fullName)) {
+            throw new IllegalArgumentException(String.format(AuthMessages.INVALID_USERNAME, fullName));
+        }
+
+        if (!RegisterValidator.isValidPassword(password, confirmPassword)) {
+           throw new IllegalArgumentException(AuthMessages.INVALID_PASSWORD);
+        }
     }
 }

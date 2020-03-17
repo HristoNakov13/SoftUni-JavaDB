@@ -1,9 +1,11 @@
 package com.gamestore.domain.models;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GameCreateModel {
+public class GameEditModel {
+    private Integer Id;
     private String title;
     private double price;
     private double size;
@@ -12,16 +14,8 @@ public class GameCreateModel {
     private String description;
     private Date releaseDate;
 
-    public GameCreateModel(String title, double price, double size, String trailer, String thumbnailURL, String description, Date releaseDate) {
-        this.title = title;
-        this.price = price;
-        this.size = size;
-        this.trailer = trailer;
-        this.thumbnailURL = thumbnailURL;
-        this.description = description;
-        this.releaseDate = releaseDate;
+    public GameEditModel() {
     }
-
 
     public String getTitle() {
         return title;
@@ -35,16 +29,16 @@ public class GameCreateModel {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = Double.parseDouble(price);
     }
 
     public double getSize() {
         return size;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setSize(String size) {
+        this.size = Double.parseDouble(size);
     }
 
     public String getTrailer() {
@@ -75,7 +69,28 @@ public class GameCreateModel {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseDate(String releaseDate) {
+        String datePattern = "dd-MM-yyyy";
+
+        if (this.releaseDate == null) {
+            releaseDate = releaseDate.split(" ")[0];
+            datePattern = "yyyy-dd-MM";
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+
+        try {
+            this.releaseDate = simpleDateFormat.parse(releaseDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 }

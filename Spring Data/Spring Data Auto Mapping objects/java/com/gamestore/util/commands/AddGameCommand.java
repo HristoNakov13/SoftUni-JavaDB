@@ -1,6 +1,8 @@
-package com.gamestore.util.io.commands;
+package com.gamestore.util.commands;
 
 import com.gamestore.services.GameService;
+
+import java.text.ParseException;
 
 @Cmd
 public class AddGameCommand implements Command {
@@ -14,7 +16,7 @@ public class AddGameCommand implements Command {
     }
 
     @Override
-    public String execute(String... args) {
+    public String execute(String... args) throws ParseException {
         if (args.length != NUMBER_OF_NEEDED_ARGS) {
             return "Fill all fields to add game.";
         }

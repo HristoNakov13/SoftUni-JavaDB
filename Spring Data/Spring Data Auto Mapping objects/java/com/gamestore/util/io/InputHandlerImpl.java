@@ -1,42 +1,46 @@
 package com.gamestore.util.io;
 
 import com.gamestore.services.AuthenticationService;
+import com.gamestore.services.CartService;
 import com.gamestore.services.GameService;
-import com.gamestore.util.io.commands.Command;
+import com.gamestore.util.commands.Command;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.*;
 
 @Component
 public class InputHandlerImpl implements InputHandler {
-    private final String COMMANDS_PACKAGE_NAME = "com.gamestore.util.io.commands";
+    private final String COMMANDS_PACKAGE_NAME = "com.gamestore.util.commands";
     private Map<String, Command> commands;
     private final AuthenticationService authenticationService;
     private final GameService gameService;
+    private final CartService cartService;
 
     @Autowired
-    public InputHandlerImpl(AuthenticationService authenticationService, GameService gameService) throws IOException, ClassNotFoundException {
+    public InputHandlerImpl(AuthenticationService authenticationService, GameService gameService, CartService cartService) throws IOException, ClassNotFoundException {
         this.authenticationService = authenticationService;
         this.gameService = gameService;
+        this.cartService = cartService;
         this.initHandler();
     }
 
     //Extract command classes then their names
     //Adds to commands map corresponding Command class instance with command name
-
     //No idea how to create instances of Command classes with automatic Dependency injection from Spring.
-    //If it fails to get constructor with authService as param it will create a command with gameService.
-    //Trash and hard to extend the app without chaining endless try/catch blocks.
 
     @PostConstruct
     private void initHandler() throws IOException, ClassNotFoundException {
         this.commands = new HashMap<>();
         List<Class> commandClasses = PackageClassFinder.getCommandClasses(COMMANDS_PACKAGE_NAME);
 
+
+        //If it fails to get constructor with authService as param it will create a command with gameService.
+        //Trash and hard to extend the app without chaining endless try/catch blocks.
         commandClasses.forEach(commandClazz -> {
             try {
                 String commandName = commandClazz.getSimpleName().replace("Command", "");
@@ -45,8 +49,13 @@ public class InputHandlerImpl implements InputHandler {
                     command = (Command) commandClazz.getConstructor(this.authenticationService.getClass())
                             .newInstance(this.authenticationService);
                 } catch (NoSuchMethodException e) {
-                    command = (Command) commandClazz.getConstructor(this.gameService.getClass())
-                            .newInstance(this.gameService);
+                    try {
+
+                        command = (Command) commandClazz.getConstructor(this.gameService.getClass())
+                                .newInstance(this.gameService);
+                    }catch (NoSuchMethodException ex) {
+                        command = (Command) commandClazz.getConstructor(this.cartService.getClass()).newInstance(this.cartService);
+                    }
                 }
 
                 commands.put(commandName, command);
@@ -66,7 +75,7 @@ public class InputHandlerImpl implements InputHandler {
     }
 
     @Override
-    public String executeInput(String input) {
+    public String executeInput(String input) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ParseException {
         String commandName = this.getCommandName(input);
 
         if (!isValidCommand(commandName)) {

@@ -1,4 +1,4 @@
-package com.gamestore.util.io.commands;
+package com.gamestore.util.commands;
 
 import com.gamestore.services.AuthenticationService;
 import com.gamestore.services.AuthenticationServiceImpl;

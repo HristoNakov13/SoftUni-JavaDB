@@ -1,10 +1,9 @@
 package com.gamestore.repositories;
 
-import com.gamestore.domain.entities.Game;
+import com.gamestore.domain.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game, Integer> {
-    Game findGameByTitle(String title);
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 }

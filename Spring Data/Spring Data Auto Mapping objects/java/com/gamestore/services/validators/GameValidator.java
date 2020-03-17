@@ -1,14 +1,18 @@
 package com.gamestore.services.validators;
 
-import com.gamestore.services.messages.GameMessages;
+import com.gamestore.util.messages.GameMessages;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GameValidator {
-//    Title – has to begin with an uppercase letter and must have length between 3 and 100 symbols (inclusively).
-    public static boolean isValidTitle(String title) {
+
+    public GameValidator() {
+    }
+
+    //    Title – has to begin with an uppercase letter and must have length between 3 and 100 symbols (inclusively).
+    public boolean isValidTitle(String title) {
         Pattern titlePattern = Pattern.compile("^[A-Z]{1,1}[a-z]{2,99}$");
         Matcher match = titlePattern.matcher(title);
 
@@ -16,7 +20,7 @@ public class GameValidator {
     }
 
 //    Price – must be a positive number with precision up to 2 digits after the floating point.
-    public static boolean isValidPrice(String price) {
+    public boolean isValidPrice(String price) {
         try {
             BigDecimal parsedPrice = new BigDecimal(price);
             boolean hasAccuratePrecision = parsedPrice.scale() == 2;
@@ -28,7 +32,7 @@ public class GameValidator {
     }
 
 //    Size – must be a positive number with precision up to 1 digit after the floating point.
-    public static boolean isValidSize(String size) {
+    public boolean isValidSize(String size) {
         try {
             BigDecimal parsedSize = new BigDecimal(size);
             boolean hasAccuratePrecision = parsedSize.scale() == 1;
@@ -41,9 +45,9 @@ public class GameValidator {
 
 //    Trailer – only videos from YouTube are allowed.
 //    Only their ID, which is a string of exactly 11 characters, should be saved to the database.
-    public static boolean isValidTrailer(String trailerURL) {
-        String youtubeURLRegex = "^((https:\\/\\/www\\.)|(https:\\/\\/)|(www\\.)|(http:\\/\\/)|(http:\\/\\/www\\.)|())" +
-                "youtube\\.com\\/watch\\?v=.{11}$";
+    public boolean isValidTrailer(String trailerURL) {
+        String youtubeURLRegex = "^((https://www\\.)|(https://)|(www\\.)|(http://)|(http://www\\.)|())" +
+                "youtube\\.com/watch\\?v=.{11}$";
 
         Pattern urlPattern = Pattern.compile(youtubeURLRegex);
         Matcher matcher = urlPattern.matcher(trailerURL);
@@ -51,8 +55,8 @@ public class GameValidator {
         return matcher.find();
     }
 //    Thumbnail URL – it should be a plain text starting with http://, https:// or null
-    public static boolean isValidThumbnail(String thumbnailURl) {
-        String thumbnailRegex = "^((https:\\/\\/)|(http:\\/\\/)|()).+$";
+    public boolean isValidThumbnail(String thumbnailURl) {
+        String thumbnailRegex = "^((https://)|(http://)|()).+$";
 
         Pattern thumbnailPattern = Pattern.compile(thumbnailRegex);
         Matcher matcher = thumbnailPattern.matcher(thumbnailURl);
@@ -60,51 +64,47 @@ public class GameValidator {
         return matcher.find();
     }
 
-    public static boolean isValidDescription(String description) {
+    public boolean isValidDescription(String description) {
         return description.length() >= 20;
     }
 
-//    Matches only dates in the format yyyy-mm-dd
-    public static boolean isValidReleaseDate(String releaseDate) {
-        String dateRegex = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
+//    Matches only dates in the format dd-mm-yyyy
+    public boolean isValidReleaseDate(String releaseDate) {
+        String dateRegex = "^[0-9]{2}-[0-9]{2}-[0-9]{4}$";
         Pattern datePattern = Pattern.compile(dateRegex);
 
         return datePattern.matcher(releaseDate).find();
     }
 
-    public static String validateGame(String[] args) {
-        if (!GameValidator.isValidTitle(args[0])) {
-            return GameMessages.INVALID_TITLE;
+    public boolean validateGame(String[] args) {
+        if (!isValidTitle(args[0])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_TITLE);
         }
 
-        if (!GameValidator.isValidPrice(args[1])) {
-            return GameMessages.INVALID_PRICE;
+        if (!isValidPrice(args[1])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_PRICE);
         }
 
-        if (!GameValidator.isValidSize(args[2])) {
-            return GameMessages.INVALID_SIZE;
+        if (!isValidSize(args[2])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_SIZE);
         }
 
-        if (!GameValidator.isValidTrailer(args[3])) {
-            return GameMessages.INVALID_TRAILER;
+        if (!isValidTrailer(args[3])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_TRAILER);
         }
 
-        if (!GameValidator.isValidThumbnail(args[4])) {
-            return GameMessages.INVALID_THUMBNAIL;
+        if (!isValidThumbnail(args[4])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_THUMBNAIL);
         }
 
-        if (!GameValidator.isValidThumbnail(args[4])) {
-            return GameMessages.INVALID_THUMBNAIL;
+        if (!isValidDescription(args[5])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_DESCRIPTION);
         }
 
-        if (!GameValidator.isValidDescription(args[5])) {
-            return GameMessages.INVALID_DESCRIPTION;
+        if (!isValidReleaseDate(args[6])) {
+            throw new IllegalArgumentException(GameMessages.INVALID_DATE);
         }
 
-        if (!GameValidator.isValidReleaseDate(args[6])) {
-            return GameMessages.INVALID_DATE;
-        }
-
-        return GameMessages.VALID_GAME;
+        return true;
     }
 }

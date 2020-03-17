@@ -1,6 +1,8 @@
-package com.gamestore.util.io.commands;
+package com.gamestore.util.commands;
 
 import com.gamestore.services.GameService;
+
+import java.lang.reflect.InvocationTargetException;
 
 @Cmd
 public class EditGameCommand implements Command {
@@ -11,7 +13,7 @@ public class EditGameCommand implements Command {
     }
 
     @Override
-    public String execute(String... args) {
+    public String execute(String... args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         return this.gameService.editGame(args);
     }
 }
