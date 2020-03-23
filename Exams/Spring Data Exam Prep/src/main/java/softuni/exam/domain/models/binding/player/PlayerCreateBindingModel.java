@@ -1,9 +1,12 @@
 package softuni.exam.domain.models.binding.player;
 
+import org.hibernate.validator.constraints.Length;
 import softuni.exam.domain.entities.enums.Position;
 import softuni.exam.domain.models.binding.picture.PictureCreateBindingModel;
 import softuni.exam.domain.models.binding.team.TeamCreateBindingModel;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -30,6 +33,7 @@ public class PlayerCreateBindingModel {
     }
 
     @NotNull
+    @Length(min = 3, max = 15)
     public String getLastName() {
         return lastName;
     }
@@ -39,6 +43,8 @@ public class PlayerCreateBindingModel {
     }
 
     @NotNull
+    @Min(value = 1)
+    @Max(value = 99)
     public Integer getNumber() {
         return number;
     }
@@ -48,6 +54,7 @@ public class PlayerCreateBindingModel {
     }
 
     @NotNull
+    @Min(value = 0)
     public BigDecimal getSalary() {
         return salary;
     }

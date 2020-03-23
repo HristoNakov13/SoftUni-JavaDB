@@ -67,7 +67,7 @@ public class Player extends BaseEntity {
         this.position = position;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "picture_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_players_pictures"), nullable = false)
     public Picture getPicture() {
         return picture;
@@ -77,7 +77,7 @@ public class Player extends BaseEntity {
         this.picture = picture;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_players_teams"), nullable = false)
     public Team getTeam() {
         return team;

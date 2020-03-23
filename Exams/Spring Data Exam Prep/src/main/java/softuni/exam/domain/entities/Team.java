@@ -1,6 +1,7 @@
 package softuni.exam.domain.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -8,6 +9,7 @@ public class Team extends BaseEntity {
 
     private String name;
     private Picture picture;
+    private Set<Player> players;
 
     public Team() {
     }
@@ -21,7 +23,7 @@ public class Team extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "picture_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_teams_pictures"), nullable = false)
     public Picture getPicture() {
         return picture;
@@ -29,5 +31,14 @@ public class Team extends BaseEntity {
 
     public void setPicture(Picture picture) {
         this.picture = picture;
+    }
+
+    @OneToMany(mappedBy = "team")
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }

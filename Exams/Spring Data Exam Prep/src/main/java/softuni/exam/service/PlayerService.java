@@ -3,6 +3,7 @@ package softuni.exam.service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public interface PlayerService {
     String importPlayers() throws IOException;
@@ -11,7 +12,7 @@ public interface PlayerService {
 
     String readPlayersJsonFile() throws IOException;
 
-    String exportPlayersInATeam();
+    String exportPlayersInATeam(String teamName);
 
-    public String exportPlayersWhereSalaryBiggerThan();
+    String exportPlayersWhereSalaryBiggerThan(BigDecimal salary);
 }

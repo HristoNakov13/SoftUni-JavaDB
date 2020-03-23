@@ -18,6 +18,7 @@ public class TeamCreateBindingModel {
 
     @XmlElement(name = "picture")
     private PictureCreateBindingModel picture;
+    private Integer id;
 
     public TeamCreateBindingModel() {
     }
@@ -39,5 +40,13 @@ public class TeamCreateBindingModel {
 
     public void setPicture(PictureCreateBindingModel picture) {
         this.picture = picture;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

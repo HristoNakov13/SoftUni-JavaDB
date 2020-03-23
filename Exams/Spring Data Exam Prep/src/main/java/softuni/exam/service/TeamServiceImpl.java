@@ -41,22 +41,30 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public String importTeams() throws JAXBException, IOException {
         ListTeamCreateBindingModel listTeam = this.xmlParser.fromXmlToObject(FilePaths.TEAMS_XML, ListTeamCreateBindingModel.class);
+        StringBuilder result = new StringBuilder();
 
-       List<Team> teams = listTeam
-               .getTeams()
-               .stream()
-               .filter(this.validator::isValid)
-               .map(currentTeam -> {
-                  Team team = this.modelMapper.map(currentTeam, Team.class);
-                  team.setPicture(this.pictureService.getPictureByUrl(team.getPicture().getUrl()));
+        List<Team> teams = listTeam
+                .getTeams()
+                .stream()
+                .map(currentTeam -> {
+                    Team team = this.modelMapper.map(currentTeam, Team.class);
+                    team.setPicture(this.pictureService.getPictureByUrl(team.getPicture().getUrl()));
 
-                  return team;
-               }).filter(team -> team.getPicture() != null)
-               .collect(Collectors.toList());
+                    return team;
+                }).filter(team -> {
+                    if (this.validator.isValid(team) && team.getPicture() != null) {
+                        result.append(String.format("Successfully imported - %s\r\n", team.getName()));
+
+                        return true;
+                    }
+                    result.append("Invalid team\r\n");
+
+                    return false;
+                }).collect(Collectors.toList());
 
         this.teamRepository.saveAll(teams);
 
-        return "";
+        return result.toString().trim();
     }
 
     @Override
