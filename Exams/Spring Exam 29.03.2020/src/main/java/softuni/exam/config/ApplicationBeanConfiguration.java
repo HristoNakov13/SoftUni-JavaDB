@@ -5,14 +5,17 @@ import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import softuni.exam.util.ValidatorUtil;
-import softuni.exam.util.ValidatorUtilImpl;
-import softuni.exam.util.parser.XmlParser;
-import softuni.exam.util.parser.XmlParserImpl;
+import softuni.exam.util.parser.dateparser.DateParser;
+import softuni.exam.util.parser.dateparser.DateParserImpl;
+import softuni.exam.util.parser.xmlparser.XmlParser;
+import softuni.exam.util.parser.xmlparser.XmlParserImpl;
+import softuni.exam.util.reader.FileUtil;
+import softuni.exam.util.reader.FileUtilImpl;
+import softuni.exam.util.validator.ValidationUtil;
+import softuni.exam.util.validator.ValidationUtilImpl;
 
 @Configuration
 public class ApplicationBeanConfiguration {
-
 
     @Bean
     public Gson gson() {
@@ -21,9 +24,9 @@ public class ApplicationBeanConfiguration {
                 .create();
     }
 
-    @Bean(name = "validator")
-    public ValidatorUtil validationUtil() {
-        return new ValidatorUtilImpl();
+    @Bean
+    public ValidationUtil validationUtil() {
+        return new ValidationUtilImpl();
     }
 
     @Bean
@@ -32,7 +35,17 @@ public class ApplicationBeanConfiguration {
     }
 
     @Bean
-    public XmlParser xmlParser (){
+    public FileUtil fileUtil() {
+        return new FileUtilImpl();
+    }
+
+    @Bean
+    public DateParser dateParser() {
+        return new DateParserImpl();
+    }
+
+    @Bean
+    public XmlParser xmlParser() {
         return new XmlParserImpl();
     }
 }

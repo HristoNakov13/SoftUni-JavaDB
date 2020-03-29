@@ -1,16 +1,14 @@
 package softuni.exam.service;
 
-import softuni.exam.domain.entities.Picture;
 
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 public interface PictureService {
-    String importPictures(String pictureXml) throws IOException, JAXBException;
 
     boolean areImported();
 
-    String readPicturesXmlFile() throws IOException;
+    String readPicturesFromFile() throws IOException;
+	
+	String importPictures(String pictureJson) throws IOException;
 
-    Picture getPictureByUrl(String url);
 }

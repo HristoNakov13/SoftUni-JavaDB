@@ -1,27 +1,25 @@
 package softuni.exam.domain.entities;
 
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
-    private Integer id;
+    private long id;
 
     public BaseEntity() {
     }
 
     @Id
-    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 }
